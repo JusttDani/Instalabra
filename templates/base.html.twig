@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}Instalabra
+			{% endblock %}
+		</title>
+
+		<!-- Links -->
+		<link
+		rel="icon" type="image/png" href="{{ asset('multimedia/logo.png') }}">
+		<!-- Linking the correct CSS file -->
+		<link rel="stylesheet" href="{{ asset('css/estilos.css') }}"> {% block stylesheets %}{% endblock %}
+
+		<!-- Hotwire Turbo for SPA Navigation -->
+		<script type="module">
+			import hotwiredTurbo from 'https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.4/+esm';
+		</script>
+
+		<!-- Fuentes -->
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> {% block javascripts %}{% endblock %}
+		</head>
+
+		<body>
+			<div
+				class="container">
+				<!-- Barra lateral izquierda -->
+				<aside class="menu-bar-left">
+					<div class="logo">
+						<img src="{{ asset('multimedia/logo.png') }}" alt="Logo de Instalabra">
+					</div>
+
+					<nav class="menu">
+						<ul>
+							<li>
+								<a href="{{ path('app_home') }}">Inicio</a>
+							</li>
+							<li>
+								<a href="{{ path('app_ranking') }}">Explorar</a>
+							</li>
+							<li>
+								<a href="{{ path('app_chat_index') }}">Mensajes</a>
+							</li>
+							{% if app.user %}
+								<li>
+									<a href="{{ path('app_perfil') }}">Perfil</a>
+								</li>
+								<li>
+									<a href="{{ path('app_logout') }}">Cerrar sesión</a>
+								</li>
+							{% else %}
+								<li>
+									<a href="{{ path('app_login') }}">Login</a>
+								</li>
+							{% endif %}
+						</ul>
+					</nav>
+
+					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+						{# Botón para usuarios logueados: hace scroll y focus #}
+						<button class="publicar" onclick="document.querySelector('form[name=\'palabra\'] input[type=\'text\']').focus(); window.scrollTo({top:0, behavior:'smooth'});">
+							Publicar
+						</button>
+					{% else %}
+						{# Enlace para usuarios NO logueados: redirige al login #}
+						<a href="{{ path('app_login') }}" class="publicar" style="text-decoration: none; display: inline-block; text-align: center;">
+							Publicar
+						</a>
+					{% endif %}
+
+					<div
+						class="menu-bar">
+						<!-- Toggle menu functionality can be added here if needed -->
+						<img id="toggle-menu" src="{{ asset('multimedia/menu_bar.png') }}" alt="Menu bar">
+					</div>
+				</aside>
+
+				<!-- Contenido principal (Feed) -->
+				<main class="feed">
+					{% for label, messages in app.flashes %}
+						{% for message in messages %}
+							<div class="flash-{{ label }}">
+								{{ message }}
+							</div>
+						{% endfor %}
+					{% endfor %}
+
+					{% block body %}{% endblock %}
+				</main>
+
+				<!-- Barra lateral derecha -->
+				{% block right_sidebar %}
+					{{ render(controller('App\\Controller\\PageController::rankingWidget')) }}
+				{% endblock %}
+			</div>
+
+			<!-- Flecha para que se pueda plegar/desplegar el menú -->
+			<div class="toggle-arrow" id="toggle-arrow">
+				<img src="{{ asset('multimedia/arrow.png') }}" alt="Flecha para plegar/desplegar el menú">
+			</div>
+
+			<!-- Scripts-->
+			<!-- Debug Mode Widget -->
+			{% if app.session.get('debug_mode') %}
+				<div>
+					<div>
+						<h4>🔧 Debug Mode</h4>
+						<span>ACTIVO</span>
+					</div>
+
+					<p>
+						<strong>Fecha Simulada:</strong><br>
+						{{ app.session.get('simulated_date') ? app.session.get('simulated_date') : 'Tiempo Real (Hoy)' }}
+					</p>
+
+					<form action="{{ path('debug_set_date') }}" method="post">
+						<input type="datetime-local" name="simulated_date" value="{{ app.session.get('simulated_date') }}" step="1">
+						<button type="submit">Establecer Fecha</button>
+					</form>
+
+					<div>
+						<form action="{{ path('debug_set_date') }}" method="post">
+							<input type="hidden" name="simulated_date" value="">
+							<button type="submit">Reset Hoy</button>
+						</form>
+						<a href="{{ path('debug_toggle') }}">Desactivar</a>
+					</div>
+				</div>
+			{% else %}
+				<!-- Footer link for debug -->
+				<div>
+					<a href="{{ path('debug_toggle') }}" title="Activar Modo Debug">🛠️</a>
+				</div>
+			{% endif %}
+
+			<script src="{{ asset('js/instalabra.js') }}"></script>
+			<script src="{{ asset('js/menu.js') }}"></script>
+		</body>
+	</html>

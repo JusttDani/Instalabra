@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Palabra
+{% endblock %}
+
+{% block body %}
+	<h1>{{ palabra.palabra }}</h1>
+
+	<p>
+		{{ palabra.definicion }}
+	</p>
+	<p>
+		Publicado por
+		<strong>{{ palabra.usuario.nombre }}</strong><br>
+		<img src="{{ palabra.usuario.fotoPerfil ? asset('uploads/perfiles/' ~ palabra.usuario.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}" alt="{{ palabra.usuario.nombre }}" width="30" height="30">
+		<small>{{ palabra.fechaCreacion|date('d/m/Y H:i') }}</small>
+	</p>
+
+	{% if app.user and (app.user == palabra.usuario or is_granted('ROLE_ADMIN')) %}
+		<form method="post" action="{{ path('palabra_delete', {id: palabra.id}) }}" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta publicación?');" style="display:inline;">
+			<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ palabra.id) }}">
+			<button type="submit">Eliminar Publicación</button>
+		</form>
+	{% endif %}
+
+	<hr>
+
+	<h3>👍 Likes:
+		{{ palabra.valoraciones|filter(v => v.likeActiva)|length }}</h3>
+
+	{% if app.user %}
+		<form action="{{ path('palabra_like_toggle', { id: palabra.id }) }}" method="post">
+			{% set liked = false %}
+			{% for v in palabra.valoraciones %}
+				{% if v.usuario.id == app.user.id and v.likeActiva %}
+					{% set liked = true %}
+				{% endif %}
+			{% endfor %}
+			<button type="submit">
+				{% if liked %}💖 Ya te gusta{% else %}👍 Like
+				{% endif %}
+			</button>
+		</form>
+	{% endif %}
+
+	<hr>
+
+	<h3>💬 Comentarios ({{ palabra.comentarios|length }})</h3>
+
+	{% if app.user %}
+		<form action="{{ path('palabra_comentar', { id: palabra.id }) }}" method="post">
+			<input type="text" name="comentario_texto" placeholder="Escribe tu comentario..." required>
+			<button type="submit">Comentar</button>
+		</form>
+	{% endif %}
+
+	{% for comentario in palabra.comentarios %}
+		<div class="comentario">
+			<p>
+				<img src="{{ comentario.usuario.fotoPerfil ? asset('uploads/perfiles/' ~ comentario.usuario.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}" alt="{{ comentario.usuario.nombre }}" width="20" height="20">
+				<strong>{{ comentario.usuario.nombre }}</strong>:
+				{{ comentario.texto }}
+			</p>
+			<small>{{ comentario.fechaCreacion|date('d/m/Y H:i') }}</small>
+			{% if app.user and (app.user == comentario.usuario or is_granted('ROLE_ADMIN')) %}
+				<form method="post" action="{{ path('comentario_delete', {id: comentario.id}) }}" onsubmit="return confirm('¿Eliminar comentario?');" style="display:inline;">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comentario.id) }}">
+					<button type="submit">[x]</button>
+				</form>
+			{% endif %}
+		</div>
+	{% else %}
+		<p>No hay comentarios todavía.</p>
+	{% endfor %}
+{% endblock %}
