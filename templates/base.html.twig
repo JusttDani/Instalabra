@@ -13,6 +13,14 @@
 		rel="icon" type="image/png" href="{{ asset('multimedia/logo.png') }}">
 		<!-- Linking the correct CSS file -->
 		<link rel="stylesheet" href="{{ asset('css/estilos.css') }}"> {% block stylesheets %}{% endblock %}
+<<<<<<< HEAD
+=======
+		<link rel="stylesheet" href="{{ asset('css/wordle.css') }}">
+		<!-- Hotwire Turbo for SPA Navigation -->
+		<script type="module">
+			import hotwiredTurbo from 'https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.4/+esm';
+		</script>
+>>>>>>> e1c8099 (Wordle)
 
 		<!-- Fuentes -->
 		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> {% block javascripts %}{% endblock %}
@@ -136,5 +144,6 @@
 
 			<script src="{{ asset('js/instalabra.js') }}"></script>
 			<script src="{{ asset('js/menu.js') }}"></script>
+			<script src="{{ asset('js/wordle.js') }}"></script>
 		</body>
 	</html>

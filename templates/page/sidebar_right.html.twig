@@ -34,4 +34,17 @@
 			{% endfor %}
 		</ul>
 	</div>
+	<div id="wordle-sidebar" class="p-3 bg-light border rounded">
+    <h5 class="text-center">Palabra del Día</h5>
+    <div id="wordle-grid" class="d-grid gap-1 mb-2">
+        {% for row in 0..5 %}
+            <div class="wordle-row d-flex gap-1 justify-content-center" data-row="{{ row }}">
+                {% for col in 0..4 %}
+                    <div class="tile border d-flex align-items-center justify-content-center fw-bold" 
+                         style="width: 35px; height: 35px; text-transform: uppercase;" 
+                         data-col="{{ col }}"></div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 </div>
