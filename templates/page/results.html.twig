@@ -14,8 +14,20 @@
 			<h3>Usuarios</h3>
 			<ul class="results-list">
 				{% for user in usuarios %}
-					<li>
-						<a style="text-decoration:none; color:inherit;" href="{{ path('app_usuario_perfil', {'id': user.id}) }}">{{ user.nombre }}</a>
+					<li class="suggestion-item">
+                        <img class="suggestion-avatar" src="{{ user.fotoPerfil ? asset('uploads/perfiles/' ~ user.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}" alt="{{ user.nombre }}">
+						<div class="user-info-suggestion">
+                            <span class="suggestion-name">
+                                <a href="{{ path('app_usuario_perfil', {'id': user.id}) }}" style="text-decoration:none; color:inherit;">{{ user.nombre }}</a>
+                            </span>
+                        </div>
+                        {% if app.user and app.user.id != user.id %}
+                            <a href="{{ path('app_usuario_follow', {id: user.id}) }}" class="ajax-follow-link">
+                                <button class="suggestion-follow-btn">
+                                    {{ user.id in followingIds ? 'Siguiendo' : 'Seguir' }}
+                                </button>
+                            </a>
+                        {% endif %}
 					</li>
 				{% else %}
 					{% if query is not empty %}

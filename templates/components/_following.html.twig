@@ -14,13 +14,15 @@
                  alt="{{ seguimiento.nombre }}">
             <span>{{ seguimiento.nombre }}</span>
           </a>
-          <button class="btn-follow">
-            {% if app.user and seguimiento.id in app.user.seguimientosQueHace|map(s => s.id) %}
-              Siguiendo
-            {% else %}
-              Seguir
-            {% endif %}
-          </button>
+          <a href="{{ path('app_usuario_follow', {id: seguimiento.id}) }}" class="ajax-follow-link">
+            <button class="btn-follow">
+              {% if app.user and seguimiento.id in app.user.seguimientosQueHace|map(s => s.id) %}
+                Siguiendo
+              {% else %}
+                Seguir
+              {% endif %}
+            </button>
+          </a>
         </div>
       {% else %}
         <p class="empty-subtitle">Este usuario aún no sigue a nadie</p>

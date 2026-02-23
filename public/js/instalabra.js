@@ -139,47 +139,51 @@ document.addEventListener("turbo:load", () => {
   });
 
   // ================== GESTIÓN DE SEGUIDORES ==================
-  const followLinks = document.querySelectorAll(".ajax-follow-link");
-  followLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      const url = this.getAttribute("href");
-      const btn = this.querySelector("button");
-      if (btn) {
-        btn.style.opacity = "0.7";
-        btn.textContent = "...";
-      }
+  document.addEventListener("click", function (e) {
+    const link = e.target.closest(".ajax-follow-link");
+    if (!link) return;
 
-      fetch(url, {
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-          Accept: "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.following !== undefined) {
-            if (btn) {
-              btn.style.opacity = "1";
-              if (data.following) {
-                btn.textContent = "Dejar de seguir";
-              } else {
-                btn.textContent = "Seguir";
-              }
-            }
+    e.preventDefault();
+    const url = link.getAttribute("href");
+    const btn = link.querySelector("button");
+    if (btn) {
+      btn.style.opacity = "0.7";
+      btn.textContent = "...";
+    }
 
-            // Actualizamos la cifra de seguidores en el perfil si estamos viéndolo
-            const followersDisplay = document.querySelector(".followers-count");
-            if (data.followersCount !== undefined && followersDisplay) {
-              followersDisplay.textContent = data.followersCount;
+    fetch(url, {
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.following !== undefined) {
+          if (btn) {
+            btn.style.opacity = "1";
+            if (data.following) {
+              btn.textContent = "Dejar de seguir";
+            } else {
+              btn.textContent = "Seguir";
             }
           }
-        })
-        .catch((err) => {
-          console.error("Error follow:", err);
-          if (btn) btn.style.opacity = "1";
-        });
-    });
+
+          // Actualizamos la cifra de seguidores en el perfil si estamos viéndolo
+          // Importante: Solo si el ID del usuario seguido coincide con el del perfil
+          const profileUserId = document.querySelector('main.feed')?.dataset?.userId;
+          const followedUserId = url.split('/').filter(p => !isNaN(p) && p !== "").pop();
+
+          const followersDisplay = document.querySelector(".js-followers-count");
+          if (data.followersCount !== undefined && followersDisplay && (!profileUserId || profileUserId === followedUserId)) {
+            followersDisplay.textContent = data.followersCount;
+          }
+        }
+      })
+      .catch((err) => {
+        console.error("Error follow:", err);
+        if (btn) btn.style.opacity = "1";
+      });
   });
 });
 
@@ -257,7 +261,21 @@ document.addEventListener("turbo:load", () => {
         } else {
           data.results.forEach((item) => {
             if (filter === "usuarios") {
-              html += `<li><a style="text-decoration:none; color:inherit;" href="/usuario/${item.id}">${item.nombre}</a></li>`;
+              html += `<li class="suggestion-item">
+                        <img class="suggestion-avatar" src="${item.fotoPerfil}" alt="${item.nombre}">
+                        <div class="user-info-suggestion">
+                           <span class="suggestion-name">
+                             <a style="text-decoration:none; color:inherit;" href="/usuario/${item.id}">${item.nombre}</a>
+                           </span>
+                        </div>`;
+              if (!item.isMe) {
+                html += `<a href="/usuario/${item.id}/follow" class="ajax-follow-link">
+                           <button class="suggestion-follow-btn">
+                             ${item.isFollowing ? 'Dejar de seguir' : 'Seguir'}
+                           </button>
+                         </a>`;
+              }
+              html += `</li>`;
             } else if (filter === "palabras") {
               html += `<li><a style="text-decoration:none; color:inherit;" href="/palabra/${item.id}">${item.palabra}</a></li>`;
             } else if (filter === "definiciones") {
@@ -276,22 +294,22 @@ document.addEventListener("turbo:load", () => {
       .catch((err) => console.error("Error en búsqueda AJAX:", err));
   }
 
-    // Te llevamos directamente a la página de búsqueda al pinchar en la barra, muy rollo app
-    searchInput.addEventListener('focus', () => {
-        if (!window.location.pathname.includes('/buscar')) {
-            const url = `/buscar?q=${encodeURIComponent(searchInput.value)}&filter=${currentFilter}`;
-            if (window.Turbo) {
-                window.Turbo.visit(url);
-            } else {
-                // Por si Turbo se pone rebelde
-                const tempLink = document.createElement('a');
-                tempLink.href = url;
-                document.body.appendChild(tempLink);
-                tempLink.click();
-                tempLink.remove();
-            }
-        }
-    });
+  // Te llevamos directamente a la página de búsqueda al pinchar en la barra, muy rollo app
+  searchInput.addEventListener('focus', () => {
+    if (!window.location.pathname.includes('/buscar')) {
+      const url = `/buscar?q=${encodeURIComponent(searchInput.value)}&filter=${currentFilter}`;
+      if (window.Turbo) {
+        window.Turbo.visit(url);
+      } else {
+        // Por si Turbo se pone rebelde
+        const tempLink = document.createElement('a');
+        tempLink.href = url;
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        tempLink.remove();
+      }
+    }
+  });
 
   // Lanzamos la búsqueda mientras el usuario teclea (evitando saturar el servidor)
   searchInput.addEventListener("input", (e) => {
@@ -337,22 +355,41 @@ document.addEventListener("turbo:load", () => {
       }
     });
   }
+
+  // ================== FILTRADO EN MODALES DE SEGUIDORES ==================
+  const modalSearchInputs = document.querySelectorAll('.search-followers');
+  modalSearchInputs.forEach(input => {
+    input.addEventListener('input', function () {
+      const query = this.value.toLowerCase().trim();
+      const modal = this.closest('.modal');
+      const users = modal.querySelectorAll('.modal-user');
+
+      users.forEach(user => {
+        const username = user.querySelector('span').textContent.toLowerCase();
+        if (username.includes(query)) {
+          user.style.display = 'flex';
+        } else {
+          user.style.display = 'none';
+        }
+      });
+    });
+  });
 });
 
 // ================== EDITAR PERFIL - PREVIEW FOTO ==================
-    const fotoInput = document.getElementById('foto-preview');
-    if (fotoInput) {
-        const fileInput = document.querySelector('.editar-form input[type="file"]');
-        if (fileInput) {
-            fileInput.addEventListener('change', function (e) {
-                const file = e.target.files[0];
-                if (file && file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        document.getElementById('foto-preview').src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        }
-    }
+const fotoInput = document.getElementById('foto-preview');
+if (fotoInput) {
+  const fileInput = document.querySelector('.editar-form input[type="file"]');
+  if (fileInput) {
+    fileInput.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById('foto-preview').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+}
