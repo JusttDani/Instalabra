@@ -138,53 +138,81 @@ document.addEventListener("turbo:load", () => {
     });
   });
 
-  // ================== GESTIÓN DE SEGUIDORES ==================
-  document.addEventListener("click", function (e) {
-    const link = e.target.closest(".ajax-follow-link");
-    if (!link) return;
+});
 
-    e.preventDefault();
-    const url = link.getAttribute("href");
-    const btn = link.querySelector("button");
-    if (btn) {
-      btn.style.opacity = "0.7";
-      btn.textContent = "...";
-    }
+// ================== GESTIÓN DE SEGUIDORES (GLOBAL) ==================
+// Se define fuera de turbo:load porque usamos delegación de eventos en el document.
+// Si estuviera dentro, Turbo añadiría un listener extra cada vez que cambiamos de página,
+// provocando que el botón se pulse múltiples veces.
+document.addEventListener("click", function (e) {
+  const link = e.target.closest(".ajax-follow-link");
+  if (!link) return;
 
-    fetch(url, {
-      headers: {
-        "X-Requested-With": "XMLHttpRequest",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.following !== undefined) {
-          if (btn) {
-            btn.style.opacity = "1";
-            if (data.following) {
-              btn.textContent = "Dejar de seguir";
-            } else {
-              btn.textContent = "Seguir";
-            }
-          }
+  e.preventDefault();
+  e.stopPropagation(); // Evitar que Turbo intercepte el click globalmente y dispare una visita a la URL
+  
+  // Prevenir doble clic rápido (debounce rudimentario)
+  if (link.dataset.isFetching === "true") return;
+  link.dataset.isFetching = "true";
 
-          // Actualizamos la cifra de seguidores en el perfil si estamos viéndolo
-          // Importante: Solo si el ID del usuario seguido coincide con el del perfil
-          const profileUserId = document.querySelector('main.feed')?.dataset?.userId;
-          const followedUserId = url.split('/').filter(p => !isNaN(p) && p !== "").pop();
+  const url = link.getAttribute("href");
+  const btn = link.querySelector("button");
+  if (btn) {
+    btn.style.opacity = "0.7";
+    btn.textContent = "...";
+  }
 
-          const followersDisplay = document.querySelector(".js-followers-count");
-          if (data.followersCount !== undefined && followersDisplay && (!profileUserId || profileUserId === followedUserId)) {
-            followersDisplay.textContent = data.followersCount;
+  fetch(url, {
+    method: "POST", // IMPRESCINDIBLE para que el navegador no cacheé la respuesta
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+      Accept: "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.following !== undefined) {
+        if (btn) {
+          btn.style.opacity = "1";
+          if (data.following) {
+            btn.textContent = "Dejar de seguir";
+          } else {
+            btn.textContent = "Seguir";
           }
         }
-      })
-      .catch((err) => {
-        console.error("Error follow:", err);
-        if (btn) btn.style.opacity = "1";
-      });
-  });
+
+        // Actualizamos la cifra de seguidores en el perfil si estamos viéndolo
+        // Importante: Solo si el ID del usuario seguido coincide con el del perfil
+        const profileUserId = document.querySelector('main.feed')?.dataset?.userId;
+        const followedUserId = url.split('/').filter(p => !isNaN(p) && p !== "").pop();
+
+        const followersDisplay = document.querySelector(".js-followers-count");
+        if (data.followersCount !== undefined && followersDisplay && (!profileUserId || profileUserId === followedUserId)) {
+          followersDisplay.textContent = data.followersCount;
+        }
+
+        // Refrescar caja de sugerencias de la derecha sin recargar la página
+        fetch('/api/sidebar/right', { headers: { "X-Requested-With": "XMLHttpRequest" }})
+          .then(res => res.text())
+          .then(html => {
+              const temp = document.createElement('div');
+              temp.innerHTML = html;
+              const newSuggestions = temp.querySelector('#user-suggestions');
+              const oldSuggestions = document.getElementById('user-suggestions');
+              if (newSuggestions && oldSuggestions) {
+                  oldSuggestions.innerHTML = newSuggestions.innerHTML;
+              }
+          })
+          .catch(err => console.error("Error refrescando sugerencias:", err));
+      }
+    })
+    .catch((err) => {
+      console.error("Error follow:", err);
+      if (btn) btn.style.opacity = "1";
+    })
+    .finally(() => {
+	    link.dataset.isFetching = "false";
+	});
 });
 
 // Ventanas modales para hojear los seguidores y a quién sigue alguien

@@ -258,4 +258,26 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->mensajesRecibidos;
     }
+
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'password' => $this->password,
+            'nombre' => $this->nombre,
+            'roles' => $this->roles,
+            'isBlocked' => $this->isBlocked,
+        ];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->id = (int) ($data['id'] ?? 0);
+        $this->email = (string) ($data['email'] ?? '');
+        $this->password = (string) ($data['password'] ?? '');
+        $this->nombre = (string) ($data['nombre'] ?? '');
+        $this->roles = (array) ($data['roles'] ?? []);
+        $this->isBlocked = (bool) ($data['isBlocked'] ?? false);
+    }
 }

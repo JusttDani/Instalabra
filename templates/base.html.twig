@@ -14,26 +14,27 @@
 		<!-- Linking the correct CSS file -->
 		<link rel="stylesheet" href="{{ asset('css/estilos.css') }}"> {% block stylesheets %}{% endblock %}
 		<link rel="stylesheet" href="{{ asset('css/wordle.css') }}">
-		<link rel="stylesheet" href="{{ asset('css/darkmode.css') }}">
-		
+		<link
+		rel="stylesheet" href="{{ asset('css/darkmode.css') }}">
+
 		<!-- Theme Detection Script (Anti-flicker) -->
 		<script>
-			(function() {
-				const theme = localStorage.getItem('theme') || 'light';
-				if (theme === 'dark') {
-					document.documentElement.classList.add('dark-mode');
-					document.body.classList.add('dark-mode');
-				}
-			})();
+			(function () {
+const theme = localStorage.getItem('theme') || 'light';
+if (theme === 'dark') {
+document.documentElement.classList.add('dark-mode');
+document.body.classList.add('dark-mode');
+}
+})();
 		</script>
 		<!-- Hotwire Turbo for SPA Navigation -->
+		<meta name="turbo-cache-control" content="no-cache">
 		<script type="module">
 			import hotwiredTurbo from 'https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.4/+esm';
 		</script>
 
 		<!-- Fuentes -->
-		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-		{% block javascripts %}{% endblock %}
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> {% block javascripts %}{% endblock %}
 
 		<!-- Scripts -->
 		<script src="{{ asset('js/instalabra.js') }}" defer></script>
@@ -41,126 +42,125 @@
 		<script src="{{ asset('js/wordle.js') }}" defer></script>
 	</head>
 
-		<body>
-			<div
-				class="container">
-				<!-- Barra lateral izquierda -->
-				<aside class="menu-bar-left">
-					<div class="logo">
-						<img src="{{ asset('multimedia/logo.png') }}" alt="Logo de Instalabra">
-					</div>
+	<body>
+		<div
+			class="container">
+			<!-- Barra lateral izquierda -->
+			<aside class="menu-bar-left">
+				<div class="logo">
+					<img src="{{ asset('multimedia/logo.png') }}" alt="Logo de Instalabra">
+				</div>
 
-					<nav class="menu">
-						<ul>
+				<nav class="menu">
+					<ul>
+						<li>
+							<a href="{{ path('app_home') }}">Inicio</a>
+						</li>
+						<li>
+							<a href="{{ path('app_ranking') }}">Ranking</a>
+						</li>
+						<li>
+							<a href="{{ path('app_explorar') }}">Explorar</a>
+						</li>
+						<li>
+							<a href="{{ path('app_chat_index') }}">Mensajes</a>
+						</li>
+						{% if app.user %}
 							<li>
-								<a href="{{ path('app_home') }}">Inicio</a>
+								<a href="{{ path('app_perfil') }}">Perfil</a>
 							</li>
 							<li>
-								<a href="{{ path('app_ranking') }}">Ranking</a>
+								<a href="{{ path('app_logout') }}" data-turbo="false">Cerrar sesión</a>
 							</li>
+						{% else %}
 							<li>
-								<a href="{{ path('app_explorar') }}" >Explorar</a>
+								<a href="{{ path('app_login') }}">Login</a>
 							</li>
-							<li>
-								<a href="{{ path('app_chat_index') }}">Mensajes</a>
-							</li>
-							{% if app.user %}
-								<li>
-									<a href="{{ path('app_perfil') }}">Perfil</a>
-								</li>
-								<li>
-									<a href="{{ path('app_logout') }}">Cerrar sesión</a>
-								</li>
-							{% else %}
-								<li>
-									<a href="{{ path('app_login') }}">Login</a>
-								</li>
-							{% endif %}
-						</ul>
-					</nav>
+						{% endif %}
+					</ul>
+				</nav>
 
-					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-						{# Botón para usuarios logueados: hace scroll y focus #}
-						<button class="publicar" 
-								onclick="document.querySelector('form[name=\'palabra\'] input[type=\'text\']').focus(); window.scrollTo({top:0, behavior:'smooth'});">
-							Publicar
-						</button>
-					{% else %}
-						{# Enlace para usuarios NO logueados: redirige al login #}
-						<a href="{{ path('app_login') }}" class="publicar" style="text-decoration: none; display: inline-block; text-align: center;">
-							Publicar
-						</a>
-					{% endif %}
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+					{# Botón para usuarios logueados: hace scroll y focus #}
+					<button class="publicar" onclick="document.querySelector('form[name=\'palabra\'] input[type=\'text\']').focus(); window.scrollTo({top:0, behavior:'smooth'});">
+						Publicar
+					</button>
+				{% else %}
+					{# Enlace para usuarios NO logueados: redirige al login #}
+					<a href="{{ path('app_login') }}" class="publicar" style="text-decoration: none; display: inline-block; text-align: center;">
+						Publicar
+					</a>
+				{% endif %}
 
-					<div class="theme-toggle-container">
-						<button id="btn-light" class="theme-btn active">Día</button>
-						<button id="btn-dark" class="theme-btn">Noche</button>
-					</div>
-					
-					<div
-						class="menu-bar">
-						<!-- Toggle menu functionality can be added here if needed -->
-						<img id="toggle-menu" src="{{ asset('multimedia/menu_bar.png') }}" alt="Menu bar">
-					</div>
-				</aside>
+				<div class="theme-toggle-container">
+					<button id="btn-light" class="theme-btn active">Día</button>
+					<button id="btn-dark" class="theme-btn">Noche</button>
+				</div>
 
-				<!-- Contenido principal (Feed) -->
-				<main class="feed">
-					{% for label, messages in app.flashes %}
-						{% for message in messages %}
-							<div class="flash-{{ label }}">
-								{{ message }}
-							</div>
-						{% endfor %}
+				<div
+					class="menu-bar">
+					<!-- Toggle menu functionality can be added here if needed -->
+					<img id="toggle-menu" src="{{ asset('multimedia/menu_bar.png') }}" alt="Menu bar">
+				</div>
+			</aside>
+
+			<!-- Contenido principal (Feed) -->
+			<main class="feed">
+				{% for label, messages in app.flashes %}
+					{% for message in messages %}
+						<div class="flash-{{ label }}">
+							{{ message }}
+						</div>
 					{% endfor %}
+				{% endfor %}
 
-					{% block body %}{% endblock %}
-				</main>
+				{% block body %}{% endblock %}
+			</main>
 
-				<!-- Barra lateral derecha -->
-				{% block right_sidebar %}
-					{{ render(controller('App\\Controller\\PageController::rankingWidget')) }}
-				{% endblock %}
-			</div>
+			<!-- Barra lateral derecha -->
+			{% block right_sidebar %}
+				{{ render(controller('App\\Controller\\PageController::rankingWidget')) }}
+			{% endblock %}
+		</div>
 
-			<!-- Flecha para que se pueda plegar/desplegar el menú -->
-			<div class="toggle-arrow" id="toggle-arrow">
-				<img src="{{ asset('multimedia/arrow.png') }}" alt="Flecha para plegar/desplegar el menú">
-			</div>
+		<!-- Flecha para que se pueda plegar/desplegar el menú -->
+		<div class="toggle-arrow" id="toggle-arrow">
+			<img src="{{ asset('multimedia/arrow.png') }}" alt="Flecha para plegar/desplegar el menú">
+		</div>
 
-			<!-- Scripts-->
-			<!-- Debug Mode Widget -->
-			{% if app.session.get('debug_mode') %}
+		<!-- Scripts-->
+		<!-- Debug Mode Widget -->
+		{% if app.session.get('debug_mode') %}
+			<div>
 				<div>
-					<div>
-						<h4>🔧 Debug Mode</h4>
-						<span>ACTIVO</span>
-					</div>
+					<h4>🔧 Debug Mode</h4>
+					<span>ACTIVO</span>
+				</div>
 
-					<p>
-						<strong>Fecha Simulada:</strong><br>
-						{{ app.session.get('simulated_date') ? app.session.get('simulated_date') : 'Tiempo Real (Hoy)' }}
-					</p>
+				<p>
+					<strong>Fecha Simulada:</strong><br>
+					{{ app.session.get('simulated_date') ? app.session.get('simulated_date') : 'Tiempo Real (Hoy)' }}
+				</p>
 
+				<form action="{{ path('debug_set_date') }}" method="post">
+					<input type="datetime-local" name="simulated_date" value="{{ app.session.get('simulated_date') }}" step="1">
+					<button type="submit">Establecer Fecha</button>
+				</form>
+
+				<div>
 					<form action="{{ path('debug_set_date') }}" method="post">
-						<input type="datetime-local" name="simulated_date" value="{{ app.session.get('simulated_date') }}" step="1">
-						<button type="submit">Establecer Fecha</button>
+						<input type="hidden" name="simulated_date" value="">
+						<button type="submit">Reset Hoy</button>
 					</form>
-
-					<div>
-						<form action="{{ path('debug_set_date') }}" method="post">
-							<input type="hidden" name="simulated_date" value="">
-							<button type="submit">Reset Hoy</button>
-						</form>
-						<a href="{{ path('debug_toggle') }}">Desactivar</a>
-					</div>
+					<a href="{{ path('debug_toggle') }}">Desactivar</a>
 				</div>
-			{% else %}
-				<!-- Footer link for debug -->
-				<div>
-					<a href="{{ path('debug_toggle') }}" title="Activar Modo Debug">🛠️</a>
-				</div>
-			{% endif %}
+			</div>
+		{% else %}
+			<!-- Footer link for debug -->
+			<div>
+				<a href="{{ path('debug_toggle') }}" title="Activar Modo Debug">🛠️</a>
+			</div>
+		{% endif %}
 
-		</body>
-	</html>
+	</body>
+</html>
