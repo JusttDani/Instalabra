@@ -143,7 +143,7 @@
 				<!-- COMENTAR -->
 				<div class="action" onclick="document.getElementById('comments-{{ palabra.id }}').scrollIntoView({behavior: 'smooth'});">
 					<img src="{{ asset('multimedia/comment.png') }}" alt="Comentar">
-					<span class="count">{{ palabra.comentarios|length }}</span>
+					<span class="count">{{ palabra.activeComentariosCount }}</span>
 				</div>
 
 				<!-- COMPARTIR -->
@@ -165,7 +165,7 @@
 
 			<!-- SECCIÓN COMENTARIOS EN FEED -->
 			<div class="comments" id="comments-{{ palabra.id }}">
-				{% for comentario in palabra.comentarios|slice(0, 3) %}
+				{% for comentario in palabra.activeComentarios|slice(0, 3) %}
 					<div class="comment">
 						<img src="{{ comentario.usuario.fotoPerfil ? asset('uploads/perfiles/' ~ comentario.usuario.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}" alt="{{ comentario.usuario.email }}">
 						<div class="comment-text">
@@ -185,7 +185,7 @@
 					<p>Aún no hay comentarios.</p>
 				{% endfor %}
 
-				{% if palabra.comentarios|length > 3 %}
+				{% if palabra.activeComentariosCount > 3 %}
 					<div>
 						<a href="{{ path('palabra_show', {id: palabra.id}) }}">Ver todos los comentarios...</a>
 					</div>

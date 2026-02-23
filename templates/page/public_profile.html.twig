@@ -111,7 +111,7 @@
                         <!-- COMENTARIOS -->
                         <div class="action comment-action" onclick="window.location.href='{{ path('palabra_show', {id: palabra.id}) }}'">
                             <img src="{{ asset('multimedia/comment.png') }}" alt="Comentar">
-                            <span class="count">{{ palabra.comentarios|length }}</span>
+                            <span class="count">{{ palabra.activeComentariosCount }}</span>
                         </div>
                     </div>
                 </section>

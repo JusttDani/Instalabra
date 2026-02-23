@@ -92,6 +92,21 @@ class Palabra
         return $this->valoraciones;
     }
 
+    /**
+     * @return Collection<int, Comentario>
+     */
+    public function getActiveComentarios(): Collection
+    {
+        return $this->comentarios->filter(function (Comentario $comentario) {
+            return $comentario->getDeletedAt() === null;
+        });
+    }
+
+    public function getActiveComentariosCount(): int
+    {
+        return $this->getActiveComentarios()->count();
+    }
+
     public function getFechaCreacion(): \DateTimeInterface
     {
         return $this->fechaCreacion;
