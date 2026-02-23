@@ -506,4 +506,14 @@ final class PageController extends AbstractController
             'currentFilter' => $currentFilter,
         ]);
     }
+
+    #[Route('/explorar', name: 'app_explorar')]
+    public function explorar(PalabraRepository $palabraRepository): Response
+    {
+        $palabras = $palabraRepository->findAll();
+
+        return $this->render('page/explorar.html.twig', [
+            'palabras' => $palabras,
+        ]);
+    }
 }

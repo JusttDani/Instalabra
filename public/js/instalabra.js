@@ -338,3 +338,21 @@ document.addEventListener("turbo:load", () => {
     });
   }
 });
+
+// ================== EDITAR PERFIL - PREVIEW FOTO ==================
+    const fotoInput = document.getElementById('foto-preview');
+    if (fotoInput) {
+        const fileInput = document.querySelector('.editar-form input[type="file"]');
+        if (fileInput) {
+            fileInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.getElementById('foto-preview').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    }
