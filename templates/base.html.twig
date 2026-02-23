@@ -23,8 +23,14 @@
 >>>>>>> e1c8099 (Wordle)
 
 		<!-- Fuentes -->
-		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> {% block javascripts %}{% endblock %}
-		</head>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+		{% block javascripts %}{% endblock %}
+
+		<!-- Scripts -->
+		<script src="{{ asset('js/instalabra.js') }}" defer></script>
+		<script src="{{ asset('js/menu.js') }}" defer></script>
+		<script src="{{ asset('js/wordle.js') }}" defer></script>
+	</head>
 
 		<body>
 			<div
@@ -142,8 +148,5 @@
 				</div>
 			{% endif %}
 
-			<script src="{{ asset('js/instalabra.js') }}"></script>
-			<script src="{{ asset('js/menu.js') }}"></script>
-			<script src="{{ asset('js/wordle.js') }}"></script>
 		</body>
 	</html>

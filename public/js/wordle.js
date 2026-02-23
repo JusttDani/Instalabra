@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
     const grid = document.getElementById('wordle-grid');
     const message = document.getElementById('wordle-message');
     const hiddenInput = document.getElementById('wordle-hidden-input');
