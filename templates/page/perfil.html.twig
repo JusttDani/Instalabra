@@ -3,7 +3,7 @@
 {% endblock %}
 
 {% block body %}
-	<main class="feed">
+	<main class="feed" data-user-id="{{ usuario.id }}">
 		<!-- Foto de perfil -->
 		<section class="foto-perfil">
 			<div class="profile-header">
@@ -27,7 +27,7 @@
 				</div>
 
 				<div class="stat-item followers" onclick="openFollowers()">
-					<strong>{{ usuario.seguimientosQueRecibe|length }}</strong>
+					<strong class="js-followers-count">{{ usuario.seguimientosQueRecibe|length }}</strong>
 					<span>Seguidores</span>
 				</div>
 				<div class="stat-item following" onclick="openFollowing()">

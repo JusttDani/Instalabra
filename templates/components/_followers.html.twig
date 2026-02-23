@@ -13,9 +13,11 @@
               <img src="{{ seguimiento.fotoPerfil ? asset('uploads/perfiles/' ~ seguimiento.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}" alt="{{ seguimiento.nombre }}">
               <span>{{ seguimiento.nombre }}</span>
           </a>
-          <button class="btn-follow">
-              Seguir
-          </button>
+          <a href="{{ path('app_usuario_follow', {id: seguimiento.id}) }}" class="ajax-follow-link">
+            <button class="btn-follow">
+                Seguir
+            </button>
+          </a>
       </div>
       {% else %}
           <p class="empty-subtitle">Este usuario aún no tiene seguidores</p>

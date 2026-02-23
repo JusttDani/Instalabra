@@ -465,6 +465,15 @@ final class PageController extends AbstractController
             ->getQuery()
             ->getResult() : [];
 
+        $followingIds = [];
+        $user = $this->getUser();
+        if ($user) {
+            /** @var \App\Entity\Usuario $user */
+            foreach ($user->getSeguimientosQueHace() as $seguimiento) {
+                $followingIds[] = $seguimiento->getSeguido()->getId();
+            }
+        }
+
         // Revisamos si la petición nos está pidiendo un JSON de vuelta
         if ($request->isXmlHttpRequest() || ($request->headers->get('Accept') !== null && strpos($request->headers->get('Accept'), 'application/json') !== false)) {
             $jsonData = [];
@@ -474,6 +483,9 @@ final class PageController extends AbstractController
                     $jsonData[] = [
                         'id' => $u->getId(),
                         'nombre' => $u->getNombre(),
+                        'fotoPerfil' => $u->getFotoPerfil() ? '/uploads/perfiles/' . $u->getFotoPerfil() : '/multimedia/Prueba/noicon.jpg',
+                        'isFollowing' => in_array($u->getId(), $followingIds),
+                        'isMe' => $user && $user->getId() === $u->getId()
                     ];
                 }
             } elseif ($currentFilter === 'palabras') {
@@ -504,6 +516,7 @@ final class PageController extends AbstractController
             'usuarios' => $usuarios,
             'query' => $query,
             'currentFilter' => $currentFilter,
+            'followingIds' => $followingIds
         ]);
     }
 

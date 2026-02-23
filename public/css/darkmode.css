@@ -253,6 +253,127 @@ body.dark-mode .palabra-title a {
     color: #d291ff;
 }
 
+body.dark-mode .profile-info h2,
+body.dark-mode .user_details .user_name {
+    color: #e1e8ed;
+}
+
+body.dark-mode .bio {
+    color: #8899a6;
+}
+
+body.dark-mode .bio-empty {
+    color: #536471;
+    font-style: italic;
+}
+
 body.dark-mode .stat-item:hover {
+    background-color: rgba(210, 145, 255, 0.1);
+}
+
+body.dark-mode .stat-item strong {
+    color: #e1e8ed;
+}
+
+body.dark-mode .stat-item span {
+    color: #8899a6;
+}
+
+body.dark-mode .profile-tabs {
+    background-color: rgba(21, 32, 43, 0.95);
+    border-bottom: 1px solid #38444d;
+}
+
+body.dark-mode .profile-tabs .tab-button {
+    color: #8899a6;
+}
+
+body.dark-mode .profile-tabs .tab-button.active {
+    color: #d291ff;
+}
+
+/* SEARCH RESULTS PAGE */
+body.dark-mode .search-buttons {
+    background-color: #0b1116;
+    border-bottom: 1px solid #38444d;
+}
+
+body.dark-mode .filter-btn {
+    color: #8899a6;
+    background: transparent;
+}
+
+body.dark-mode .filter-btn.active {
+    color: #d291ff;
+    border-bottom: 2px solid #d291ff;
+}
+
+body.dark-mode .results-list li {
+    border-bottom: 1px solid #38444d;
+    color: #e1e8ed;
+}
+
+body.dark-mode .suggestion-item:hover {
+    background: rgba(210, 145, 255, 0.08);
+}
+
+body.dark-mode .suggestion-follow-btn {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .suggestion-follow-btn:hover {
+    box-shadow: 0 4px 14px rgba(210, 145, 255, 0.4);
+}
+
+body.dark-mode #search-results-container h3 {
+    color: #e1e8ed;
+}
+
+/* MODALS (FOLLOWERS / FOLLOWING) */
+body.dark-mode .modal {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .modal-content {
+    background-color: #15202b !important;
+    background: #15202b !important;
+    border: 1px solid #38444d;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .modal-content h3 {
+    color: #d291ff;
+    border-bottom-color: #38444d;
+}
+
+body.dark-mode .modal-user {
+    border-bottom: 1px solid #1c2732;
+    /* Subtle divider within modal */
+}
+
+body.dark-mode .modal-user:hover {
     background-color: rgba(210, 145, 255, 0.05);
+}
+
+body.dark-mode .modal-user a {
+    color: #e1e8ed;
+}
+
+body.dark-mode .modal-user a:hover {
+    color: #d291ff;
+}
+
+body.dark-mode .search-followers {
+    background-color: #192734;
+    border-color: #38444d;
+    color: #e1e8ed;
+}
+
+body.dark-mode .search-followers:focus {
+    background-color: #22303c;
+    border-color: #d291ff;
+}
+
+body.dark-mode .modal-list p.empty-subtitle {
+    color: #8899a6;
 }
