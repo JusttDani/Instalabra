@@ -151,25 +151,6 @@ body {
   z-index: 15;
 }
 
-/* Ventanita pequeña para realizar publicaciones */
-.window {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  width: 300px;
-  text-align: center;
-  display: none;
-  z-index: 20;
-}
-
-.menu-bar-left .publicar:hover {
-  background-color: #b26eff;
-}
-
 /* Menu bar toggle */
 .menu-bar-left .menu-bar {
   margin-top: auto;
@@ -2615,24 +2596,6 @@ body {
 }
 
 /* ================== PAGINA DE EXPLORAR ================== */
-.explorar-header {
-  padding: 24px 20px 16px;
-  border-bottom: 1px solid #eff3f4;
-}
-
-.explorar-titulo {
-  font-size: 22px;
-  font-weight: 800;
-  color: #0f1419;
-  margin-bottom: 4px;
-}
-
-.explorar-subtitulo {
-  font-size: 13px;
-  color: #8899a6;
-  margin: 0;
-}
-
 /* ================== GRID ================== */
 .explorar-grid {
   display: grid;
@@ -3244,4 +3207,191 @@ body {
   .mensaje-burbuja {
     max-width: 85%;
   }
+}
+
+
+/* ================== MODAL PUBLICAR ================== */
+.modal-publicar {
+    display: none;
+    position: fixed;
+    inset: 0;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 72px;
+    z-index: 30;
+}
+
+.modal-publicar-inner {
+    background: #ffffff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 12px 40px rgba(178, 110, 255, 0.15), 0 2px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+    animation: modalSlideDown 0.22s cubic-bezier(.22,.68,0,1.15) forwards;
+}
+
+@keyframes modalSlideDown {
+    from { opacity: 0; transform: translateY(-16px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Cabecera */
+.modal-publicar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 12px;
+    border-bottom: 1px solid #f0f0f4;
+}
+
+.modal-publicar-header span {
+    font-size: 15px;
+    font-weight: 800;
+    color: #0f1419;
+    letter-spacing: -0.1px;
+}
+
+.modal-cerrar {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #8899a6;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s;
+    font-family: "Poppins", sans-serif;
+    line-height: 1;
+}
+.modal-cerrar:hover {
+    background: rgba(210, 145, 255, 0.1);
+    color: #d291ff;
+}
+
+/* Cuerpo */
+.modal-publicar-body {
+    display: flex;
+    gap: 10px;
+    padding: 14px 16px 16px;
+    align-items: flex-start;
+}
+
+.modal-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f0f0f4;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.modal-form-wrap {
+    flex: 1;
+    min-width: 0;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Inputs */
+.modal-input {
+    width: 100% !important;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    font-family: "Poppins", sans-serif !important;
+    color: #0f1419 !important;
+    resize: none !important;
+    padding: 4px 0 !important;
+    transition: border-bottom 0.2s !important;
+    display: block !important;
+}
+
+.modal-input--word {
+    font-size: 17px !important;
+    font-weight: 700 !important;
+    border-bottom: 1.5px solid #f0f0f4 !important;
+    margin-bottom: 10px !important;
+    padding-bottom: 8px !important;
+    letter-spacing: -0.2px;
+}
+.modal-input--word:focus {
+    border-bottom-color: #d291ff !important;
+}
+.modal-input--word::placeholder { color: #c8d0da !important; font-weight: 500 !important; }
+
+.modal-input--def {
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+    min-height: 60px;
+    max-height: 120px;
+    overflow-y: auto;
+    color: #3d4550 !important;
+}
+.modal-input--def::placeholder { color: #b0bac4 !important; }
+
+/* Ocultar labels de Symfony */
+.modal-form label,
+.modal-form .form-group > label { display: none !important; }
+
+/* Pie del modal */
+.modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px 14px;
+    border-top: 1px solid #f0f0f4;
+    margin-top: 10px;
+}
+
+/* Indicador de caracteres (opcional, por si lo añades luego) */
+.modal-char-hint {
+    font-size: 11px;
+    color: #b0bac4;
+    font-weight: 500;
+}
+
+.btn-publicar-modal {
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #d291ff, #b26eff);
+    border: none;
+    border-radius: 24px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 10px rgba(210, 145, 255, 0.35);
+    letter-spacing: 0.2px;
+    margin-left: auto;
+}
+.btn-publicar-modal:hover {
+    background: linear-gradient(135deg, #b26eff, #9d5ce0);
+    box-shadow: 0 5px 16px rgba(210, 145, 255, 0.5);
+    transform: translateY(-1px);
+}
+.btn-publicar-modal:active { transform: translateY(0); box-shadow: none; }
+
+/* Sin sesión */
+.modal-no-auth {
+    padding: 20px 16px;
+    font-size: 14px;
+    color: #536471;
+    text-align: center;
+}
+
+/* ================== RESPONSIVE MODAL PUBLICAR ================== */
+@media (max-width: 600px) {
+    .modal-publicar { padding-top: 0; align-items: flex-end; }
+    .modal-publicar-inner { border-radius: 16px 16px 0 0; max-width: 100%; }
 }

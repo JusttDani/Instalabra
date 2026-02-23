@@ -421,3 +421,20 @@ if (fotoInput) {
     });
   }
 }
+
+// ================== INICIO - MODAL DEL BOTON PUBLICAR ==================
+    function abrirModal() {
+        document.getElementById('modal-publicar').style.display = 'flex';
+        document.getElementById('blur').style.display = 'block';
+        const input = document.querySelector('.modal-input--word');
+        if (input) setTimeout(() => input.focus(), 80);
+    }
+
+    function cerrarModal() {
+        document.getElementById('modal-publicar').style.display = 'none';
+        document.getElementById('blur').style.display = 'none';
+    }
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') cerrarModal();
+    });
