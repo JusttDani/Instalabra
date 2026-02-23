@@ -14,6 +14,18 @@
 		<!-- Linking the correct CSS file -->
 		<link rel="stylesheet" href="{{ asset('css/estilos.css') }}"> {% block stylesheets %}{% endblock %}
 		<link rel="stylesheet" href="{{ asset('css/wordle.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/darkmode.css') }}">
+		
+		<!-- Theme Detection Script (Anti-flicker) -->
+		<script>
+			(function() {
+				const theme = localStorage.getItem('theme') || 'light';
+				if (theme === 'dark') {
+					document.documentElement.classList.add('dark-mode');
+					document.body.classList.add('dark-mode');
+				}
+			})();
+		</script>
 		<!-- Hotwire Turbo for SPA Navigation -->
 		<script type="module">
 			import hotwiredTurbo from 'https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.4/+esm';
@@ -79,6 +91,11 @@
 							Publicar
 						</a>
 					{% endif %}
+
+					<div class="theme-toggle-container">
+						<button id="btn-light" class="theme-btn active">Día</button>
+						<button id="btn-dark" class="theme-btn">Noche</button>
+					</div>
 					
 					<div
 						class="menu-bar">

@@ -1,0 +1,258 @@
+/* Dark Mode Styles for Instalabra */
+
+/* Color Palette - Subtle Dark with Purple Accents */
+body.dark-mode {
+    background-color: #0b1116;
+    color: #e1e8ed;
+}
+
+/* Sidebar Left */
+body.dark-mode .menu-bar-left {
+    background-color: #0b1116;
+    border-right: 1px solid #38444d;
+}
+
+body.dark-mode .menu-bar-left .menu a {
+    color: #e1e8ed;
+}
+
+body.dark-mode .menu-bar-left .menu a:hover {
+    background: rgba(210, 145, 255, 0.15);
+    color: #d291ff;
+}
+
+/* Feed Central */
+body.dark-mode .feed {
+    border-left: 1px solid #38444d;
+    border-right: 1px solid #38444d;
+    background-color: #0b1116;
+}
+
+body.dark-mode .feed-buttons {
+    background-color: rgba(11, 17, 22, 0.88);
+    border-bottom: 1px solid #38444d;
+    backdrop-filter: blur(14px);
+}
+
+body.dark-mode .feed-buttons button {
+    color: #8899a6;
+}
+
+body.dark-mode .feed-buttons button.active {
+    color: #d291ff;
+}
+
+/* Posts */
+body.dark-mode .single_post {
+    border-bottom: 1px solid #38444d;
+}
+
+body.dark-mode .single_post:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+body.dark-mode .single_post p,
+body.dark-mode .post_header .user_info span,
+body.dark-mode .single_post a,
+body.dark-mode .comment-text a {
+    color: #e1e8ed;
+}
+
+body.dark-mode .post_header .user_info small {
+    color: #8899a6;
+}
+
+/* Forms */
+body.dark-mode .publish-form {
+    border-bottom: 1px solid #38444d;
+}
+
+body.dark-mode .publish-form input,
+body.dark-mode .publish-form textarea {
+    color: #e1e8ed;
+}
+
+body.dark-mode .publish-form input::placeholder,
+body.dark-mode .publish-form textarea::placeholder {
+    color: #536471;
+}
+
+/* Sidebar Right */
+body.dark-mode .menu-bar-right {
+    background: #0b1116;
+    border-left: 1px solid #38444d;
+}
+
+body.dark-mode .search-box {
+    background: #192734;
+    border: 1px solid #1c2732;
+}
+
+body.dark-mode .search-box input {
+    color: #e1e8ed;
+}
+
+body.dark-mode .suggestions.box,
+body.dark-mode .rank-diary,
+body.dark-mode .rank-month {
+    background: #0b1116;
+    /* Darker background */
+    border: 1px solid #38444d;
+}
+
+body.dark-mode .suggestions.box h3,
+body.dark-mode .rank-diary h3,
+body.dark-mode .rank-month h3 {
+    color: #e1e8ed;
+    border-bottom-color: #38444d;
+}
+
+body.dark-mode .word-list li {
+    border-bottom-color: #38444d;
+    /* Darker separators between words */
+}
+
+body.dark-mode .suggestion-name,
+body.dark-mode .word-list li .word-name,
+body.dark-mode .word-list li .word-name a {
+    color: #e1e8ed;
+}
+
+body.dark-mode .suggestion-handle,
+body.dark-mode .word-list li .vote-number {
+    color: #d291ff;
+    /* Make vote numbers purple and visible */
+}
+
+/* Comments */
+body.dark-mode .comment {
+    background-color: #192734;
+}
+
+body.dark-mode .comment:hover {
+    background-color: #22303c;
+}
+
+body.dark-mode .comment-text span.username {
+    color: #e1e8ed;
+}
+
+body.dark-mode .comment-text span.message {
+    color: #e1e8ed;
+}
+
+/* Specific Comment Input Field */
+body.dark-mode .comments form input[type="text"] {
+    background-color: #192734;
+    border-color: #38444d;
+    color: #e1e8ed;
+}
+
+body.dark-mode .comments form input[type="text"]:focus {
+    background-color: #22303c;
+    border-color: #d291ff;
+}
+
+/* Toggle Buttons */
+.theme-toggle-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.theme-toggle-container button {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #d291ff;
+    border-radius: 20px;
+    background: transparent;
+    color: #d291ff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+}
+
+.theme-toggle-container button.active {
+    background: linear-gradient(135deg, #d291ff, #b26eff);
+    color: #e1e8ed;
+    border: none;
+}
+
+body.dark-mode .theme-toggle-container button:not(.active) {
+    color: #8899a6;
+    border-color: #38444d;
+}
+
+/* Modals/Windows */
+body.dark-mode .window {
+    background-color: #15202b;
+    color: #e1e8ed;
+}
+
+body.dark-mode .blur {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* Ranking Specifics */
+body.dark-mode .vote-bar {
+    background-color: #38444d;
+}
+
+/* Profile Pages */
+body.dark-mode .foto-perfil {
+    background-color: #0b1116;
+    border-bottom: 1px solid #38444d;
+}
+
+body.dark-mode .profile-info h2,
+body.dark-mode .stat-item strong,
+body.dark-mode .tab-button.active,
+body.dark-mode .empty-title {
+    color: #e1e8ed;
+}
+
+body.dark-mode .profile-info p.bio,
+body.dark-mode .stat-item span,
+body.dark-mode .tab-button,
+body.dark-mode .empty-subtitle,
+body.dark-mode .palabra-definition {
+    color: #8899a6;
+}
+
+body.dark-mode .profile-tabs {
+    border-bottom: 1px solid #38444d;
+    background-color: #0b1116;
+}
+
+body.dark-mode .tab-button:hover {
+    background-color: rgba(210, 145, 255, 0.1);
+}
+
+body.dark-mode .btn-edit-profile,
+body.dark-mode .btn-follow,
+body.dark-mode .btn-following,
+body.dark-mode .btn-message,
+body.dark-mode .btn-admin {
+    background-color: transparent;
+    border: 1px solid #d291ff;
+    color: #d291ff;
+}
+
+body.dark-mode .btn-edit-profile:hover,
+body.dark-mode .btn-follow:hover,
+body.dark-mode .btn-following:hover,
+body.dark-mode .btn-message:hover,
+body.dark-mode .btn-admin:hover {
+    background-color: rgba(210, 145, 255, 0.1);
+}
+
+body.dark-mode .palabra-title a {
+    color: #d291ff;
+}
+
+body.dark-mode .stat-item:hover {
+    background-color: rgba(210, 145, 255, 0.05);
+}

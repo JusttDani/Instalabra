@@ -50,4 +50,41 @@ document.addEventListener('turbo:load', function() {
             if (overlay) overlay.style.display = "none";
         });
     }
+
+    // --- Modo Día / Noche ---
+    const btnLight = document.getElementById('btn-light');
+    const btnDark = document.getElementById('btn-dark');
+    const body = document.body;
+
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            body.classList.add('dark-mode');
+            document.documentElement.classList.add('dark-mode');
+            if (btnDark) btnDark.classList.add('active');
+            if (btnLight) btnLight.classList.remove('active');
+        } else {
+            body.classList.remove('dark-mode');
+            document.documentElement.classList.remove('dark-mode');
+            if (btnLight) btnLight.classList.add('active');
+            if (btnDark) btnDark.classList.remove('active');
+        }
+    }
+
+    // Inicializar estado de los botones según el tema actual
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(currentTheme);
+
+    if (btnLight) {
+        btnLight.addEventListener('click', () => {
+            localStorage.setItem('theme', 'light');
+            applyTheme('light');
+        });
+    }
+
+    if (btnDark) {
+        btnDark.addEventListener('click', () => {
+            localStorage.setItem('theme', 'dark');
+            applyTheme('dark');
+        });
+    }
 });
