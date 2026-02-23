@@ -13,10 +13,21 @@
 		rel="icon" type="image/png" href="{{ asset('multimedia/logo.png') }}">
 		<!-- Linking the correct CSS file -->
 		<link rel="stylesheet" href="{{ asset('css/estilos.css') }}"> {% block stylesheets %}{% endblock %}
+		<link rel="stylesheet" href="{{ asset('css/wordle.css') }}">
+		<!-- Hotwire Turbo for SPA Navigation -->
+		<script type="module">
+			import hotwiredTurbo from 'https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.4/+esm';
+		</script>
 
 		<!-- Fuentes -->
-		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> {% block javascripts %}{% endblock %}
-		</head>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+		{% block javascripts %}{% endblock %}
+
+		<!-- Scripts -->
+		<script src="{{ asset('js/instalabra.js') }}" defer></script>
+		<script src="{{ asset('js/menu.js') }}" defer></script>
+		<script src="{{ asset('js/wordle.js') }}" defer></script>
+	</head>
 
 		<body>
 			<div
@@ -134,7 +145,5 @@
 				</div>
 			{% endif %}
 
-			<script src="{{ asset('js/instalabra.js') }}"></script>
-			<script src="{{ asset('js/menu.js') }}"></script>
 		</body>
 	</html>
