@@ -45,7 +45,7 @@
 
 	<hr>
 
-	<h3>💬 Comentarios ({{ palabra.comentarios|length }})</h3>
+	<h3>💬 Comentarios ({{ palabra.activeComentariosCount }})</h3>
 
 	{% if app.user %}
 		<form action="{{ path('palabra_comentar', { id: palabra.id }) }}" method="post">
@@ -54,7 +54,7 @@
 		</form>
 	{% endif %}
 
-	{% for comentario in palabra.comentarios %}
+	{% for comentario in palabra.activeComentarios %}
 		<div class="comentario">
 			<p>
 				<img src="{{ comentario.usuario.fotoPerfil ? asset('uploads/perfiles/' ~ comentario.usuario.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}" alt="{{ comentario.usuario.nombre }}" width="20" height="20">
