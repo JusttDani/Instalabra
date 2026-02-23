@@ -14,7 +14,7 @@ class RetoDiario
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'retoDiarios')]
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Palabra $palabra = null;
 

@@ -10,13 +10,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 #[ORM\Entity(repositoryClass: UsuarioRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Este email ya está en uso.')]
+#[UniqueEntity(fields: ['nombre'], message: 'Este nombre de usuario ya está en uso.')]
 class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id, ORM\GeneratedValue, ORM\Column(type: "integer")]
     private int $id;
 
-    #[ORM\Column(type: "string", length: 255)]
+    #[ORM\Column(type: "string", length: 255, unique: true)]
     private string $nombre;
 
     #[ORM\Column(type: "string", length: 255, unique: true)]
