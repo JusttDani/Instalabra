@@ -436,5 +436,61 @@ if (fotoInput) {
     }
 
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') cerrarModal();
+        if (e.key === 'Escape') {
+            cerrarModal();
+            closeConfirmModal();
+        }
     });
+
+// ================== MODAL DE CONFIRMACIÓN GLOBAL ==================
+document.addEventListener("turbo:load", () => {
+  const forms = document.querySelectorAll('form[data-confirm]');
+  forms.forEach(form => {
+    // Evitar añadir múltiples listeners si turbo recarga
+    if (form.dataset.confirmListenerAttached) return;
+    form.dataset.confirmListenerAttached = "true";
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const message = this.dataset.confirm;
+      
+      const modal = document.getElementById('global-confirm-modal');
+      const blur = document.getElementById('global-confirm-blur');
+      const msgEl = document.getElementById('confirm-modal-message');
+      const btnYes = document.getElementById('confirm-modal-yes');
+      
+      if (modal && blur && msgEl && btnYes) {
+        msgEl.textContent = message;
+        modal.style.display = 'flex';
+        blur.style.display = 'block';
+        
+        // Remove previous listeners using cloneNode
+        const newBtnYes = btnYes.cloneNode(true);
+        btnYes.parentNode.replaceChild(newBtnYes, btnYes);
+        
+        newBtnYes.addEventListener('click', () => {
+          modal.style.display = 'none';
+          blur.style.display = 'none';
+          // Validamos que el form aún existe
+          if (document.body.contains(form)) {
+              form.removeAttribute('data-confirm');
+              form.submit();
+          }
+        });
+      } else {
+        // Fallback nativo
+        if (confirm(message)) {
+          form.removeAttribute('data-confirm');
+          form.submit();
+        }
+      }
+    });
+  });
+});
+
+window.closeConfirmModal = function() {
+  const modal = document.getElementById('global-confirm-modal');
+  const blur = document.getElementById('global-confirm-blur');
+  if (modal) modal.style.display = 'none';
+  if (blur) blur.style.display = 'none';
+};

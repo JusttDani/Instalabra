@@ -128,6 +128,24 @@ document.body.classList.add('dark-mode');
 			<img src="{{ asset('multimedia/arrow.png') }}" alt="Flecha para plegar/desplegar el menú">
 		</div>
 
+		<!-- Confirm Modal -->
+		<div id="global-confirm-blur" class="blur" style="display: none; z-index: 9999;" onclick="closeConfirmModal()"></div>
+		<div id="global-confirm-modal" class="modal-publicar" style="display: none; z-index: 10000;" role="dialog" aria-modal="true">
+			<div class="modal-publicar-inner">
+				<div class="modal-publicar-header">
+					<span id="confirm-modal-title">Confirmar acción</span>
+					<button class="modal-cerrar" onclick="closeConfirmModal()" aria-label="Cerrar">✕</button>
+				</div>
+				<div class="modal-publicar-body" style="text-align: center; padding: 20px;">
+					<p id="confirm-modal-message" style="margin-bottom: 20px; font-size: 1.1rem; color: var(--text-color);">¿Estás seguro?</p>
+					<div style="display: flex; justify-content: center; gap: 15px; margin-top: 10px;">
+						<button type="button" class="btn-cancelar" onclick="closeConfirmModal()" style="padding: 10px 20px; border-radius: 20px; border: 1px solid var(--text-color); background: transparent; cursor: pointer; color: var(--text-color); font-weight: 600;">Cancelar</button>
+						<button type="button" id="confirm-modal-yes" class="btn-publicar-modal" style="background-color: #ff4d4d; color: white;">Confirmar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Scripts-->
 		<!-- Debug Mode Widget -->
 		{% if app.session.get('debug_mode') %}

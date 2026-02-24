@@ -1,99 +1,103 @@
 {% extends 'base.html.twig' %}
-{% block title %}Palabra{% endblock %}
+{% block title %}Palabra
+{% endblock %}
 {% block body %}
 
-<div class="palabra-show">
+	<div
+		class="palabra-show">
 
-    <!-- Cabecera de la palabra -->
-    <div class="palabra-show-header">
-        <h1 class="palabra-show-title">{{ palabra.palabra }}</h1>
-        <p class="palabra-show-definicion">{{ palabra.definicion }}</p>
-    </div>
+		<!-- Cabecera de la palabra -->
+		<div class="palabra-show-header">
+			<h1 class="palabra-show-title">{{ palabra.palabra }}</h1>
+			<p class="palabra-show-definicion">{{ palabra.definicion }}</p>
+		</div>
 
-    <!-- Info del autor -->
-    <div class="palabra-show-autor">
-        <a href="{{ path('app_usuario_perfil', {id: palabra.usuario.id}) }}" class="autor-link">
-            <img src="{{ palabra.usuario.fotoPerfil ? asset('uploads/perfiles/' ~ palabra.usuario.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}"
-                 alt="{{ palabra.usuario.nombre }}" class="autor-avatar">
-            <div class="autor-info">
-                <span class="autor-nombre">{{ palabra.usuario.nombre }}</span>
-                <span class="autor-fecha">{{ palabra.fechaCreacion|date('d/m/Y H:i') }}</span>
-            </div>
-        </a>
+		<!-- Info del autor -->
+		<div class="palabra-show-autor">
+			<a href="{{ path('app_usuario_perfil', {id: palabra.usuario.id}) }}" class="autor-link">
+				<img src="{{ palabra.usuario.fotoPerfil ? asset('uploads/perfiles/' ~ palabra.usuario.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}" alt="{{ palabra.usuario.nombre }}" class="autor-avatar">
+				<div class="autor-info">
+					<span class="autor-nombre">{{ palabra.usuario.nombre }}</span>
+					<span class="autor-fecha">{{ palabra.fechaCreacion|date('d/m/Y H:i') }}</span>
+				</div>
+			</a>
 
-        {% if app.user and (app.user == palabra.usuario or is_granted('ROLE_ADMIN')) %}
-            <form method="post" action="{{ path('palabra_delete', {id: palabra.id}) }}"
-                  onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta publicación?');">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ palabra.id) }}">
-                <button type="submit" class="btn-eliminar-palabra">Eliminar</button>
-            </form>
-        {% endif %}
-    </div>
+			{% if app.user and (app.user == palabra.usuario or is_granted('ROLE_ADMIN')) %}
+				<form method="post" action="{{ path('palabra_delete', {id: palabra.id}) }}" data-confirm="¿Estás seguro de que quieres eliminar esta publicación?">
+					<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ palabra.id) }}">
+					<button type="submit" class="btn-eliminar-palabra">Eliminar</button>
+				</form>
+			{% endif %}
+		</div>
 
-    <!-- Sección de likes -->
-    <div class="palabra-show-likes">
-        <span class="likes-count">
-             {{ palabra.valoraciones|filter(v => v.likeActiva)|length }} likes
-        </span>
+		<!-- Sección de likes -->
+		<div class="palabra-show-likes">
+			<span class="likes-count">
+				{{ palabra.valoraciones|filter(v => v.likeActiva)|length }}
+				likes
+			</span>
 
-        {% if app.user %}
-            <form action="{{ path('palabra_like_toggle', { id: palabra.id }) }}" method="post">
-                {% set liked = false %}
-                {% for v in palabra.valoraciones %}
-                    {% if v.usuario.id == app.user.id and v.likeActiva %}
-                        {% set liked = true %}
-                    {% endif %}
-                {% endfor %}
-                <button type="submit" class="btn-like {{ liked ? 'btn-like--active' : '' }}">
-                    {% if liked %} Ya te gusta{% else %} Me gusta{% endif %}
-                </button>
-            </form>
-        {% endif %}
-    </div>
+			{% if app.user %}
+				<form action="{{ path('palabra_like_toggle', { id: palabra.id }) }}" method="post">
+					{% set liked = false %}
+					{% for v in palabra.valoraciones %}
+						{% if v.usuario.id == app.user.id and v.likeActiva %}
+							{% set liked = true %}
+						{% endif %}
+					{% endfor %}
+					<button type="submit" class="btn-like {{ liked ? 'btn-like--active' : '' }}">
+						{% if liked %}
+							Ya te gusta
+						{% else %}
+							Me gusta
+						{% endif %}
+					</button>
+				</form>
+			{% endif %}
+		</div>
 
-    <!-- Sección de comentarios -->
-    <div class="palabra-show-comentarios">
-        <h3 class="comentarios-titulo"> Comentarios ({{ palabra.comentarios|length }})</h3>
+		<!-- Sección de comentarios -->
+		<div class="palabra-show-comentarios">
+			<h3 class="comentarios-titulo">
+				Comentarios ({{ palabra.activeComentariosCount }})</h3>
 
-        {% if app.user %}
-            <form action="{{ path('palabra_comentar', { id: palabra.id }) }}" method="post" class="comentario-form">
-                <input type="text" name="comentario_texto" placeholder="Escribe tu comentario..." required class="comentario-input">
-                <button type="submit" class="comentario-submit">Publicar</button>
-            </form>
-        {% endif %}
+			{% if app.user %}
+				<form action="{{ path('palabra_comentar', { id: palabra.id }) }}" method="post" class="comentario-form">
+					<input type="text" name="comentario_texto" placeholder="Escribe tu comentario..." required class="comentario-input">
+					<button type="submit" class="comentario-submit">Publicar</button>
+				</form>
+			{% endif %}
 
-        <div class="comentarios-lista">
-            {% for comentario in palabra.comentarios %}
-                <div class="comentario-item">
-                    <img src="{{ comentario.usuario.fotoPerfil ? asset('uploads/perfiles/' ~ comentario.usuario.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}"
-                         alt="{{ comentario.usuario.nombre }}" class="comentario-avatar">
-                    <div class="comentario-body">
-                        <div class="comentario-header">
-                            <a href="{{ path('app_usuario_perfil', {id: comentario.usuario.id}) }}" class="comentario-autor">
-                                {{ comentario.usuario.nombre }}
-                            </a>
-                            <span class="comentario-fecha">{{ comentario.fechaCreacion|date('d/m/Y H:i') }}</span>
-                        </div>
-                        <p class="comentario-texto">{{ comentario.texto }}</p>
-                    </div>
-                    {% if app.user and (app.user == comentario.usuario or is_granted('ROLE_ADMIN')) %}
-                        <form method="post" action="{{ path('comentario_delete', {id: comentario.id}) }}"
-                              onsubmit="return confirm('¿Eliminar comentario?');" class="comentario-delete-form">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comentario.id) }}">
-                            <button type="submit" class="comentario-delete-btn">&times;</button>
-                        </form>
-                    {% endif %}
-                </div>
-            {% else %}
-                <div class="comentarios-empty">
-                    <span class="empty-icon"></span>
-                    <p class="empty-title">Sin comentarios aún</p>
-                    <p class="empty-subtitle">¡Sé el primero en comentar!</p>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+			<div class="comentarios-lista">
+				{% for comentario in palabra.activeComentarios %}
+					<div class="comentario-item">
+						<img src="{{ comentario.usuario.fotoPerfil ? asset('uploads/perfiles/' ~ comentario.usuario.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}" alt="{{ comentario.usuario.nombre }}" class="comentario-avatar">
+						<div class="comentario-body">
+							<div class="comentario-header">
+								<a href="{{ path('app_usuario_perfil', {id: comentario.usuario.id}) }}" class="comentario-autor">
+									{{ comentario.usuario.nombre }}
+								</a>
+								<span class="comentario-fecha">{{ comentario.fechaCreacion|date('d/m/Y H:i') }}</span>
+							</div>
+							<p class="comentario-texto">{{ comentario.texto }}</p>
+						</div>
+						{% if app.user and (app.user == comentario.usuario or is_granted('ROLE_ADMIN')) %}
+							<form method="post" action="{{ path('comentario_delete', {id: comentario.id}) }}" data-confirm="¿Eliminar comentario?" class="comentario-delete-form">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comentario.id) }}">
+								<button type="submit" class="comentario-delete-btn">&times;</button>
+							</form>
+						{% endif %}
+					</div>
+				{% else %}
+					<div class="comentarios-empty">
+						<span class="empty-icon"></span>
+						<p class="empty-title">Sin comentarios aún</p>
+						<p class="empty-subtitle">¡Sé el primero en comentar!</p>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
 
-</div>
+	</div>
 
 {% endblock %}
