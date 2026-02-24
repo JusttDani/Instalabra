@@ -207,7 +207,7 @@
 							<span class="message">{{ comentario.texto ?? comentario.contenido ?? '' }}</span>
 						</div>
 						{% if app.user and (app.user == comentario.usuario or is_granted('ROLE_ADMIN')) %}
-							<form method="post" action="{{ path('comentario_delete', {id: comentario.id}) }}" data-confirm="¿Eliminar comentario?" style="margin-left: auto;">
+							<form method="post" action="{{ path('comentario_delete', {id: comentario.id}) }}" onsubmit="return confirm('¿Eliminar comentario?');">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comentario.id) }}">
 								<button type="submit">&times;</button>
 							</form>

@@ -3395,3 +3395,186 @@ body {
     .modal-publicar { padding-top: 0; align-items: flex-end; }
     .modal-publicar-inner { border-radius: 16px 16px 0 0; max-width: 100%; }
 }
+
+/* ================== PAGINA DEL BUSCADOR ================== */
+/* ================== FILTROS ================== */
+.search-buttons {
+    display: flex;
+    gap: 8px;
+    padding: 16px 16px 0;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.filter-btn {
+    flex: 1;
+    padding: 9px 0;
+    border: 1.5px solid #eff3f4;
+    background: #fff;
+    color: #536471;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 28px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.01em;
+}
+
+.filter-btn:hover {
+    background: rgba(210, 145, 255, 0.08);
+    border-color: #d291ff;
+    color: #b26eff;
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #d291ff, #b26eff);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(210, 145, 255, 0.4);
+}
+
+#search-results-container {
+    max-width: 600px;
+    margin: 20px auto 80px;
+    padding: 0 16px;
+}
+
+#search-results-container h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #536471;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    padding-left: 4px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(210, 145, 255, 0.15);
+}
+
+.results-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ================== USUARIOS ================== */
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 8px;
+    border-bottom: 1px solid #eff3f4;
+    transition: background 0.2s ease;
+    border-radius: 14px;
+    animation: fadeUp 0.25s ease both;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background: rgba(210, 145, 255, 0.06);
+}
+
+.suggestion-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid #eff3f4;
+    transition: border-color 0.2s;
+}
+
+.suggestion-item:hover .suggestion-avatar {
+    border-color: #d291ff;
+}
+
+.user-info-suggestion {
+    flex: 1;
+    min-width: 0;
+}
+
+.suggestion-name {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f1419;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Oculto el follow button porque no quiero que aparezca */
+.ajax-follow-link,
+.suggestion-follow-btn {
+    display: none;
+}
+
+/* ================== PALABRAS ================== */
+.results-list li a {
+    font-size: 14px;
+    font-weight: 400;
+    color: #0f1419 !important;
+    text-decoration: none !important;
+    transition: color 0.2s;
+    line-height: 1.5;
+}
+
+.results-list li a:hover {
+    color: #b26eff !important;
+}
+
+/* ================== DEFINICIONES ================== */
+.results-list li:not(.suggestion-item) {
+    padding: 13px 8px;
+    border-bottom: 1px solid #eff3f4;
+    font-size: 14px;
+    color: #0f1419;
+    line-height: 1.5;
+    animation: fadeUp 0.25s ease both;
+    transition: background 0.15s ease;
+    border-radius: 8px;
+}
+
+.results-list li:not(.suggestion-item):hover {
+    background: rgba(210, 145, 255, 0.05);
+}
+
+.results-list li:not(.suggestion-item):last-child {
+    border-bottom: none;
+}
+
+.results-list li small {
+    font-size: 12px;
+    color: #b26eff;
+    font-weight: 600;
+    margin-top: 4px;
+    display: inline-block;
+    background: rgba(210, 145, 255, 0.1);
+    padding: 2px 10px;
+    border-radius: 20px;
+}
+
+.results-list li:only-child:not(.suggestion-item) {
+    color: #8899a6;
+    text-align: center;
+    padding: 40px 0;
+    font-size: 14px;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.results-list li:nth-child(1) { animation-delay: 0.03s; }
+.results-list li:nth-child(2) { animation-delay: 0.06s; }
+.results-list li:nth-child(3) { animation-delay: 0.09s; }
+.results-list li:nth-child(4) { animation-delay: 0.12s; }
+.results-list li:nth-child(5) { animation-delay: 0.15s; }
+.results-list li:nth-child(n+6) { animation-delay: 0.18s; }

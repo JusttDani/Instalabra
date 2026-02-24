@@ -20,12 +20,12 @@
 		<!-- Theme Detection Script (Anti-flicker) -->
 		<script>
 			(function () {
-const theme = localStorage.getItem('theme') || 'light';
-if (theme === 'dark') {
-document.documentElement.classList.add('dark-mode');
-document.body.classList.add('dark-mode');
-}
-})();
+			const theme = localStorage.getItem('theme') || 'light';
+			if (theme === 'dark') {
+			document.documentElement.classList.add('dark-mode');
+			document.body.classList.add('dark-mode');
+			}
+			})();
 		</script>
 		<!-- Hotwire Turbo for SPA Navigation -->
 		<meta name="turbo-cache-control" content="no-cache">
