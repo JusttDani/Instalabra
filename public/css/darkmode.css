@@ -3,17 +3,17 @@
 /* Color Palette - Subtle Dark with Purple Accents */
 body.dark-mode {
     background-color: #0b1116;
-    color: #8899a6;
+    color: #e1e8ed;
 }
 
 /* Sidebar Left */
 body.dark-mode .menu-bar-left {
     background-color: #0b1116;
-    border-right: 1px solid #1c2732;
+    border-right: 1px solid #38444d;
 }
 
 body.dark-mode .menu-bar-left .menu a {
-    color: #8899a6;
+    color: #e1e8ed;
 }
 
 body.dark-mode .menu-bar-left .menu a:hover {
@@ -23,14 +23,14 @@ body.dark-mode .menu-bar-left .menu a:hover {
 
 /* Feed Central */
 body.dark-mode .feed {
-    border-left: 1px solid #1c2732;
-    border-right: 1px solid #1c2732;
+    border-left: 1px solid #38444d;
+    border-right: 1px solid #38444d;
     background-color: #0b1116;
 }
 
 body.dark-mode .feed-buttons {
     background-color: rgba(11, 17, 22, 0.88);
-    border-bottom: 1px solid #1c2732;
+    border-bottom: 1px solid #38444d;
     backdrop-filter: blur(14px);
 }
 
@@ -44,34 +44,22 @@ body.dark-mode .feed-buttons button.active {
 
 /* Posts */
 body.dark-mode .single_post {
-    border-bottom: 1px solid #1c2732;
+    border-bottom: 1px solid #38444d;
 }
 
 body.dark-mode .single_post:hover {
     background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* Main Word Highlight */
-body.dark-mode .single_post p:first-of-type a,
-body.dark-mode .palabra-link,
-body.dark-mode .word-name a {
-    color: #eff3f4 !important;
-    font-weight: 700;
-}
-
-/* Secondary Text */
 body.dark-mode .single_post p,
-body.dark-mode .post_header .user_info span a,
-body.dark-mode .comment-text a,
-body.dark-mode .comment-text .message,
-body.dark-mode .comments p,
-body.dark-mode .chat-vacio-texto,
-body.dark-mode .ranking-subtitle {
-    color: #8899a6;
+body.dark-mode .post_header .user_info span,
+body.dark-mode .single_post a,
+body.dark-mode .comment-text a {
+    color: #e1e8ed;
 }
 
 body.dark-mode .post_header .user_info small {
-    color: #536471;
+    color: #8899a6;
 }
 
 /* Forms */
@@ -115,8 +103,8 @@ body.dark-mode .rank-month {
 body.dark-mode .suggestions.box h3,
 body.dark-mode .rank-diary h3,
 body.dark-mode .rank-month h3 {
-    color: #8899a6;
-    border-bottom-color: #1c2732;
+    color: #e1e8ed;
+    border-bottom-color: #38444d;
 }
 
 body.dark-mode .word-list li {
@@ -145,12 +133,12 @@ body.dark-mode .comment:hover {
     background-color: #22303c;
 }
 
-body.dark-mode .comment-text span.username a {
-    color: #8899a6;
+body.dark-mode .comment-text span.username {
+    color: #e1e8ed;
 }
 
 body.dark-mode .comment-text span.message {
-    color: #8899a6;
+    color: #e1e8ed;
 }
 
 /* Specific Comment Input Field */
@@ -223,7 +211,7 @@ body.dark-mode .profile-info h2,
 body.dark-mode .stat-item strong,
 body.dark-mode .tab-button.active,
 body.dark-mode .empty-title {
-    color: #8899a6;
+    color: #e1e8ed;
 }
 
 body.dark-mode .profile-info p.bio,
@@ -231,7 +219,7 @@ body.dark-mode .stat-item span,
 body.dark-mode .tab-button,
 body.dark-mode .empty-subtitle,
 body.dark-mode .palabra-definition {
-    color: #536471;
+    color: #8899a6;
 }
 
 body.dark-mode .profile-tabs {
@@ -596,8 +584,8 @@ body.dark-mode #wordle-sidebar {
 }
 
 body.dark-mode .wordle-section.box h3 {
-    color: #8899a6;
-    border-bottom: 1px solid #1c2732;
+    color: #e1e8ed;
+    border-bottom: 1px solid #38444d;
 }
 
 body.dark-mode .tile {

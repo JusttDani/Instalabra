@@ -1,4 +1,4 @@
-document.addEventListener('turbo:load', function() {
+document.addEventListener('turbo:load', function () {
     const menuBar = document.querySelector('.menu-bar-left');
     const toggleIcon = document.getElementById('toggle-menu');
     const toggleArrow = document.getElementById('toggle-arrow');
@@ -9,7 +9,7 @@ document.addEventListener('turbo:load', function() {
 
     // Si el usuario toca el icono, escondemos la barra lateral izquierda
     if (toggleIcon) {
-        toggleIcon.addEventListener('click', function() {
+        toggleIcon.addEventListener('click', function () {
             if (menuBar) {
                 menuBar.style.transform = 'translateX(-260px)';
                 menuBar.style.opacity = '0';
@@ -29,27 +29,7 @@ document.addEventListener('turbo:load', function() {
         });
     }
 
-    // Hacemos saltar la ventanita modal de 'Publicar' al pulsar su botón
-    if (btnPublish) {
-        btnPublish.addEventListener("click", function(){
-            if (windoww) windoww.style.display = "block";
-            if (overlay) overlay.style.display = "block";
-        });
-    }
 
-    if (closeWindow) {
-        closeWindow.addEventListener("click", function(){
-            if (windoww) windoww.style.display = "none";
-            if (overlay) overlay.style.display = "none";
-        });
-    }
-
-    if (overlay) {
-        overlay.addEventListener("click", function(){
-            if (windoww) windoww.style.display = "none";
-            if (overlay) overlay.style.display = "none";
-        });
-    }
 
     // --- Modo Día / Noche ---
     const btnLight = document.getElementById('btn-light');
