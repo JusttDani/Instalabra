@@ -1,29 +1,95 @@
 // ================== FUNCIONES PRINCIPALES ==================
+// Toggle mostrar/ocultar contraseña
+document.querySelectorAll('.toggle-password').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        const wrapper = btn.closest('.password-wrapper');
+        const input   = wrapper.querySelector('input');
+        const eyeOpen   = btn.querySelector('.eye-open');
+        const eyeClosed = btn.querySelector('.eye-closed');
 
-// Script de funcionalidades base para la interfaz de usuario
-
-document.addEventListener("turbo:load", () => {
-  console.log("Instalabra JS loaded (Cleaned).");
-
-  // Mostrar u ocultar la contraseña al pulsar el ojito
-  document.querySelectorAll(".toggle-password").forEach((button) => {
-    button.addEventListener("click", function () {
-      const input = this.parentElement.querySelector("input");
-      const eyeOpen = this.querySelector(".eye-open");
-      const eyeClosed = this.querySelector(".eye-closed");
-
-      if (input.type === "password") {
-        input.type = "text";
-        eyeOpen.style.display = "none";
-        eyeClosed.style.display = "block";
-      } else {
-        input.type = "password";
-        eyeOpen.style.display = "block";
-        eyeClosed.style.display = "none";
-      }
+        if (input.type === 'password') {
+            input.type = 'text';
+            eyeOpen.style.display   = 'none';
+            eyeClosed.style.display = 'block';
+        } else {
+            input.type = 'password';
+            eyeOpen.style.display   = 'block';
+            eyeClosed.style.display = 'none';
+        }
     });
-  });
 });
+
+// ================== PAGINA SHARE ==================
+ // ── Buscador live ──
+    var searchInput = document.getElementById('share-search');
+    var clearBtn    = document.getElementById('share-search-clear');
+    var noResults   = document.getElementById('share-no-results');
+    var titulo      = document.getElementById('share-seccion-titulo');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            var q = this.value.toLowerCase().trim();
+            var items = document.querySelectorAll('.share-item');
+            var visible = 0;
+
+            items.forEach(function(item) {
+                var nombre = item.dataset.nombre || '';
+                var match  = nombre.includes(q);
+                item.style.display = match ? '' : 'none';
+                if (match) visible++;
+            });
+
+            // Mostrar/ocultar clear button
+            if (clearBtn) clearBtn.style.display = q ? 'flex' : 'none';
+
+            // Mensaje sin resultados
+            if (noResults) noResults.style.display = (visible === 0 && q) ? 'flex' : 'none';
+
+            // Actualizar título sección
+            if (titulo) {
+                titulo.textContent = q
+                    ? (visible + ' resultado' + (visible !== 1 ? 's' : ''))
+                    : 'Siguiendo';
+            }
+        });
+    }
+
+    function clearSearch() {
+        if (searchInput) {
+            searchInput.value = '';
+            searchInput.dispatchEvent(new Event('input'));
+            searchInput.focus();
+        }
+    }
+
+    // ── Desplegable de mensaje ──
+    function toggleMsg(userId) {
+        var wrap    = document.getElementById('msg-' + userId);
+        var btn     = document.getElementById('btn-msg-' + userId);
+        var chevron = btn.querySelector('.share-chevron');
+        var open    = wrap.style.display === 'none';
+
+        wrap.style.display = open ? 'block' : 'none';
+        chevron.classList.toggle('share-chevron--open', open);
+
+        if (open) wrap.querySelector('.share-msg-input').focus();
+    }
+    
+// Contador de caracteres en bio
+    var bioInput   = document.getElementById('bio-input');
+    var bioCounter = document.getElementById('bio-counter');
+    if (bioInput && bioCounter) {
+        function updateCounter() {
+            var len = bioInput.value.length;
+            var max = 160;
+            bioCounter.textContent = len + ' / ' + max;
+            bioCounter.classList.remove('near-limit', 'at-limit');
+            if (len >= max)        bioCounter.classList.add('at-limit');
+            else if (len >= 130)   bioCounter.classList.add('near-limit');
+        }
+        bioInput.addEventListener('input', updateCounter);
+        updateCounter();
+    }
 
 // Ajustamos visualmente la barra de votos según la cantidad de likes
 document.addEventListener("turbo:load", function () {

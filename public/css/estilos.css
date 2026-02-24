@@ -470,7 +470,7 @@ body {
     font-size: 15px;
     color: #536471;
     cursor: pointer;
-    padding: 16px;.post-action
+    padding: 16px;
     transition: all 0.2s;
     position: relative;
     font-family: "Poppins", sans-serif;
@@ -1235,268 +1235,354 @@ body {
 
 /* ================== PAGINA DE EDITAR PERFIL ================== */
 .editar-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 20px;
-  border-bottom: 1px solid #eff3f4;
-  position: sticky;
-  top: 0;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(14px);
-  z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #eff3f4;
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    z-index: 20;
 }
 
 .editar-back {
-  font-size: 28px;
-  color: #536471;
-  text-decoration: none;
-  line-height: 1;
-  padding: 0 4px;
-  transition: color 0.2s;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none;
+    color: #536471;
+    font-size: 22px;
+    line-height: 1;
+    transition: background 0.2s, color 0.2s;
+    flex-shrink: 0;
 }
 
 .editar-back:hover {
-  color: #d291ff;
+    background: rgba(210, 145, 255, 0.1);
+    color: #d291ff;
 }
 
 .editar-titulo {
-  font-size: 20px;
-  font-weight: 800;
-  color: #0f1419;
-  margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+    color: #0f1419;
+    margin: 0;
+    flex: 1;
 }
 
-/* ================== CONTENEDOR ================== */
+.editar-header .editar-guardar-header {
+    padding: 7px 20px;
+    background: linear-gradient(135deg, #d291ff, #b26eff);
+    border: none;
+    border-radius: 24px;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(210, 145, 255, 0.35);
+}
+
+.editar-header .editar-guardar-header:hover {
+    background: linear-gradient(135deg, #b26eff, #9d5ce0);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(210, 145, 255, 0.5);
+}
+
 .editar-perfil {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 0 0 40px;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 0 0 60px;
 }
 
-/* ================== FOTO DE PERFIL ================== */
+/* ================== CAMBIAR FOTO ================== */
 .editar-foto-section {
-  display: flex;
-  justify-content: center;
-  padding: 32px 20px 24px;
-  border-bottom: 1px solid #eff3f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 32px 20px 28px;
+    border-bottom: 1px solid #eff3f4;
+    background: linear-gradient(to bottom, rgba(210,145,255,0.04), transparent);
 }
 
 .editar-foto-preview-wrapper {
-  position: relative;
-  cursor: pointer;
+    position: relative;
+    cursor: pointer;
 }
 
 .editar-foto-preview {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #eff3f4;
-  display: block;
-  transition: filter 0.2s;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px #eff3f4, 0 4px 16px rgba(210,145,255,0.2);
+    display: block;
+    transition: filter 0.25s, box-shadow 0.25s;
 }
 
 .editar-foto-overlay {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.45);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  opacity: 0;
-  cursor: pointer;
-  transition: opacity 0.25s;
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.2s;
 }
 
 .editar-foto-preview-wrapper:hover .editar-foto-preview {
-  filter: brightness(0.75);
+    filter: brightness(0.7);
+    box-shadow: 0 0 0 2px #d291ff, 0 4px 20px rgba(210,145,255,0.35);
 }
 
 .editar-foto-preview-wrapper:hover .editar-foto-overlay {
-  opacity: 1;
+    opacity: 1;
 }
 
 .editar-foto-icon {
-  font-size: 22px;
-  line-height: 1;
+    font-size: 20px;
+    line-height: 1;
 }
 
 .editar-foto-texto {
-  font-size: 11px;
-  font-weight: 700;
-  color: white;
-  letter-spacing: 0.3px;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
 }
 
-/* ================== CAMPOS ================== */
+.editar-foto-hint {
+    font-size: 13px;
+    font-weight: 600;
+    color: #b26eff;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.editar-foto-hint:hover {
+    color: #9d5ce0;
+}
+
+.editar-foto-section > div:last-child {
+    display: none;
+}
+
 .editar-campos {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 0;
 }
 
 .editar-campo {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 16px 20px;
-  border-bottom: 1px solid #eff3f4;
-  transition: background 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 24px;
+    border-bottom: 1px solid #eff3f4;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.editar-campo:last-child {
+    border-bottom: none;
 }
 
 .editar-campo:focus-within {
-  background: rgba(210, 145, 255, 0.03);
+    background: rgba(210, 145, 255, 0.025);
+}
+
+.editar-campo:focus-within::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+    width: 3px;
+    background: linear-gradient(180deg, #d291ff, #b26eff);
+    border-radius: 0 3px 3px 0;
 }
 
 .editar-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: #8899a6;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #8899a6;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 2px;
 }
 
 .editar-input {
-  width: 100%;
-  border: none;
-  background: transparent;
-  font-size: 15px;
-  font-family: "Poppins", sans-serif;
-  color: #0f1419;
-  outline: none;
-  padding: 4px 0;
-  border-bottom: 1.5px solid transparent;
-  transition: border-color 0.2s;
-}
-
-.editar-input:focus {
-  border-bottom-color: #d291ff;
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
+    color: #0f1419;
+    outline: none;
+    padding: 2px 0;
+    transition: color 0.2s;
 }
 
 .editar-input::placeholder {
-  color: #c0c8d0;
+    color: #c0c8d0;
 }
 
-.editar-textarea {
-  resize: none;
-  line-height: 1.6;
+.editar-input:focus {
+    color: #0f1419;
 }
 
 /* Errores */
-.editar-campo .form-error,
 .editar-campo ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
 }
 
-.editar-campo .form-error li,
 .editar-campo ul li {
-  font-size: 12px;
-  color: #ef4444;
-  margin-top: 4px;
+    font-size: 12px;
+    color: #ef4444;
 }
 
-/* ================== BOTONES ================== */
-.editar-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
-  padding: 20px;
-}
-
-.editar-cancelar {
-  padding: 10px 20px;
-  background: transparent;
-  border: 1.5px solid #eff3f4;
-  border-radius: 24px;
-  font-size: 14px;
-  font-weight: 700;
-  color: #536471;
-  text-decoration: none;
-  transition: all 0.2s;
-  font-family: "Poppins", sans-serif;
-}
-
-.editar-cancelar:hover {
-  border-color: #d291ff;
-  color: #d291ff;
-  background: rgba(210, 145, 255, 0.06);
-}
-
-.editar-guardar {
-  padding: 10px 24px;
-  background: linear-gradient(135deg, #d291ff, #b26eff);
-  border: none;
-  border-radius: 24px;
-  color: white;
-  font-size: 14px;
-  font-weight: 700;
-  font-family: "Poppins", sans-serif;
-  cursor: pointer;
-  transition: all 0.25s;
-  box-shadow: 0 3px 10px rgba(210, 145, 255, 0.35);
-}
-
-.editar-guardar:hover {
-  background: linear-gradient(135deg, #b26eff, #9d5ce0);
-  box-shadow: 0 5px 16px rgba(210, 145, 255, 0.5);
-  transform: translateY(-2px);
-}
-
-.editar-guardar:active {
-  transform: translateY(0);
-}
-
-/* ================== BIOGRAFIA ================== */
+/* Biografía */
 .editar-campo.editar-bio {
-  background: rgba(210, 145, 255, 0.08);
-  /* tono lilac muy suave */
-  border-radius: 16px;
-  padding: 12px 16px;
-  transition: background 0.25s, box-shadow 0.25s;
+    background: rgba(210, 145, 255, 0.04);
+    border-radius: 0;
+    padding: 16px 24px;
 }
 
 .editar-campo.editar-bio:focus-within {
-  background: rgba(210, 145, 255, 0.15);
-  box-shadow: 0 4px 16px rgba(210, 145, 255, 0.2);
+    background: rgba(210, 145, 255, 0.08);
 }
 
 .editar-input.editar-textarea {
-  border: none;
-  background: transparent;
-  font-size: 14px;
-  font-family: "Poppins", sans-serif;
-  color: #0f1419;
-  outline: none;
-  line-height: 1.5;
-  resize: none;
-  padding: 4px 0;
-  min-height: 60px;
+    resize: none;
+    line-height: 1.6;
+    min-height: 72px;
+    font-size: 15px;
 }
 
 .editar-input.editar-textarea::placeholder {
-  color: #bfa5e3;
-  font-style: italic;
+    color: #c0c8d0;
+    font-style: normal;
 }
 
-/* ================== ANIMACIÓN SUAVE AL ESCRIBIR ================== */
-.editar-input.editar-textarea:focus {
-  border-bottom: 1.5px solid #d291ff;
-  transition: all 0.25s ease-in-out;
+
+#perfil_biografia {
+    width: 100%;
+    resize: none;
+    line-height: 1.6;
+    min-height: 72px;
+    font-size: 15px;
+    border: none;
+    background: transparent;
+    font-family: "Poppins", sans-serif;
+    color: #0f1419;
+    outline: none;
+    padding: 2px 0;
+    display: block;
+    box-shadow: none;
 }
 
-/* ================== LABEL ================== */
-.editar-bio-label {
-  color: #9e7edb;
-  font-size: 11px;
-  letter-spacing: 0.7px;
+#perfil_biografia::placeholder {
+    color: #c0c8d0;
+}
+
+#perfil_biografia:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+/* ================== CONTADOR DE CARACTERES ================== */
+.editar-bio-counter {
+    font-size: 11px;
+    color: #b0bac4;
+    text-align: right;
+    margin-top: 4px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.editar-bio-counter.near-limit {
+    color: #f59e0b;
+}
+
+.editar-bio-counter.at-limit {
+    color: #ef4444;
+}
+
+.editar-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 20px 24px;
+    border-top: 1px solid #eff3f4;
+    margin-top: 8px;
+}
+
+.editar-cancelar {
+    padding: 10px 22px;
+    background: transparent;
+    border: 1.5px solid #e4e9ed;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #536471;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-family: "Poppins", sans-serif;
+    display: inline-flex;
+    align-items: center;
+}
+
+.editar-cancelar:hover {
+    border-color: #d291ff;
+    color: #d291ff;
+    background: rgba(210, 145, 255, 0.06);
+}
+
+.editar-guardar {
+    padding: 10px 26px;
+    background: linear-gradient(135deg, #d291ff, #b26eff);
+    border: none;
+    border-radius: 24px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 3px 12px rgba(210, 145, 255, 0.4);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.editar-guardar:hover {
+    background: linear-gradient(135deg, #b26eff, #9d5ce0);
+    box-shadow: 0 5px 18px rgba(210, 145, 255, 0.55);
+    transform: translateY(-1px);
+}
+
+.editar-guardar:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(210, 145, 255, 0.3);
 }
 
 /* ================== PAGINA DE PERFIL DEL USUARIO ================== */
@@ -3742,7 +3828,6 @@ body {
   }
 }
 
-
 /* ================== MODAL PUBLICAR ================== */
 .modal-publicar {
   display: none;
@@ -4158,4 +4243,444 @@ body {
 
 .results-list li:nth-child(n+6) {
   animation-delay: 0.18s;
+}
+
+/* ================== PAGINA DE SHARE ================== */
+/* Header */
+.share-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    border-bottom: 1px solid #eff3f4;
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+    z-index: 20;
+}
+
+.share-back {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    text-decoration: none;
+    color: #536471;
+    font-size: 22px;
+    line-height: 1;
+    transition: background 0.2s, color 0.2s;
+    flex-shrink: 0;
+}
+
+.share-back:hover {
+    background: rgba(210, 145, 255, 0.1);
+    color: #d291ff;
+}
+
+.share-titulo {
+    font-size: 17px;
+    font-weight: 800;
+    color: #0f1419;
+    margin: 0;
+}
+
+.share-page {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 0 0 60px;
+}
+
+.share-preview {
+    margin: 16px 16px 0;
+    border: 1.5px solid rgba(210, 145, 255, 0.25);
+    border-radius: 18px;
+    overflow: hidden;
+    background: linear-gradient(135deg,
+        rgba(210, 145, 255, 0.06) 0%,
+        rgba(178, 110, 255, 0.03) 100%);
+}
+
+.share-preview-autor {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid rgba(210, 145, 255, 0.1);
+}
+
+.share-preview-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(210, 145, 255, 0.2);
+    flex-shrink: 0;
+}
+
+.share-preview-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.share-preview-nombre {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f1419;
+}
+
+.share-preview-fecha {
+    font-size: 11px;
+    color: #8899a6;
+}
+
+.share-preview-contenido {
+    padding: 12px 16px 14px;
+}
+
+.share-preview-palabra {
+    font-size: 16px;
+    font-weight: 700;
+    color: #d291ff;
+    margin: 0 0 4px;
+}
+
+.share-preview-definicion {
+    font-size: 14px;
+    color: #536471;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ================== TITULO ================== */
+.share-seccion-titulo {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8899a6;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 20px 20px 8px;
+}
+
+/* ================== LISTA DE USUARIOS ================== */
+.share-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.share-item {
+    border-bottom: 1px solid #eff3f4;
+    padding: 10px 16px;
+    transition: background 0.15s;
+}
+
+.share-item:last-child {
+    border-bottom: none;
+}
+
+.share-item:hover {
+    background: rgba(210, 145, 255, 0.03);
+}
+
+/* Usuario */
+.share-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.share-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #eff3f4;
+    flex-shrink: 0;
+    transition: border-color 0.2s;
+}
+
+.share-item:hover .share-avatar {
+    border-color: rgba(210, 145, 255, 0.4);
+}
+
+.share-user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.share-user-nombre {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f1419;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Formulario y botones */
+.share-form {
+    margin-top: 2px;
+}
+
+.share-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0 4px;
+}
+
+.share-btn-msg {
+    background: #f7f7fb;
+    border: 1.5px solid #eff3f4;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #536471;
+    transition: all 0.2s;
+    line-height: 1;
+}
+
+.share-btn-msg:hover {
+    background: rgba(210, 145, 255, 0.1);
+    border-color: rgba(210, 145, 255, 0.3);
+    color: #b26eff;
+}
+
+/* Botón enviar */
+.share-btn-send {
+    padding: 8px 22px;
+    background: linear-gradient(135deg, #d291ff, #b26eff);
+    border: none;
+    border-radius: 24px;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(210, 145, 255, 0.3);
+}
+
+.share-btn-send:hover {
+    background: linear-gradient(135deg, #b26eff, #9d5ce0);
+    box-shadow: 0 4px 14px rgba(210, 145, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+.share-btn-send:active {
+    transform: translateY(0);
+}
+
+/* Desplegable de mensaje */
+.share-msg-wrap {
+    padding: 6px 0 8px;
+    animation: slideDown 0.2s ease forwards;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.share-msg-input {
+    width: 100%;
+    padding: 9px 14px;
+    border: 1.5px solid #eff3f4;
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: "Poppins", sans-serif;
+    color: #0f1419;
+    background: #f9f9fb;
+    outline: none;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.share-msg-input::placeholder {
+    color: #b0bac4;
+}
+
+.share-msg-input:focus {
+    border-color: #d291ff;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(210, 145, 255, 0.1);
+}
+
+.share-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    text-align: center;
+    gap: 6px;
+}
+
+.share-empty-icon {
+    font-size: 48px;
+    opacity: 0.4;
+    margin-bottom: 8px;
+}
+
+.share-empty-texto {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f1419;
+    margin: 0;
+}
+
+.share-empty-sub {
+    font-size: 14px;
+    color: #8899a6;
+    margin: 0;
+}
+
+.share-chevron {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+
+.share-chevron--open {
+    transform: rotate(180deg);
+}
+
+/* Botón mensaje actualizado con label + flecha */
+.share-btn-msg {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #f7f7fb;
+    border: 1.5px solid #eff3f4;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #536471;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.2s;
+}
+
+.share-btn-msg:hover {
+    background: rgba(210, 145, 255, 0.1);
+    border-color: rgba(210, 145, 255, 0.3);
+    color: #b26eff;
+}
+
+.share-btn-msg-label {
+    font-size: 13px;
+}
+
+
+/* ================== BUSCADOR ================== */
+.share-search-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 16px 16px 0;
+    padding: 10px 16px;
+    background: #f7f7fb;
+    border: 1.5px solid #eff3f4;
+    border-radius: 24px;
+    transition: all 0.2s;
+}
+
+.share-search-wrap:focus-within {
+    background: white;
+    border-color: #d291ff;
+    box-shadow: 0 0 0 3px rgba(210, 145, 255, 0.12);
+}
+
+.share-search-icon {
+    width: 16px;
+    height: 16px;
+    color: #b0bac4;
+    flex-shrink: 0;
+    transition: color 0.2s;
+}
+
+.share-search-wrap:focus-within .share-search-icon {
+    color: #d291ff;
+}
+
+.share-search-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    color: #0f1419;
+    outline: none;
+    min-width: 0;
+}
+
+.share-search-input::placeholder {
+    color: #b0bac4;
+}
+
+.share-search-clear {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #b0bac4;
+    font-size: 13px;
+    padding: 0 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+    flex-shrink: 0;
+}
+
+.share-search-clear:hover {
+    color: #536471;
+}
+
+.share-chevron {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+}
+
+.share-chevron--open {
+    transform: rotate(180deg);
+}
+
+.share-btn-msg {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #f7f7fb;
+    border: 1.5px solid #eff3f4;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #536471;
+    font-family: "Poppins", sans-serif;
+    transition: all 0.2s;
+}
+
+.share-btn-msg:hover {
+    background: rgba(210, 145, 255, 0.1);
+    border-color: rgba(210, 145, 255, 0.3);
+    color: #b26eff;
+}
+
+.share-btn-msg-label {
+    font-size: 13px;
 }
