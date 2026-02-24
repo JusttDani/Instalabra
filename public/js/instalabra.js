@@ -225,9 +225,63 @@ function openFollowing() {
 }
 
 function closeModal() {
-  document.getElementById("followers-modal").style.display = "none";
-  document.getElementById("following-modal").style.display = "none";
+  const modals = document.querySelectorAll(".modal, .modal-publicar");
+  modals.forEach(modal => modal.style.display = "none");
+  const blur = document.getElementById("blur");
+  if (blur) blur.style.display = "none";
 }
+
+// Funciones globales para el modal de publicar
+window.abrirModal = function () {
+  console.log("Opening modal...");
+  const modal = document.getElementById("modal-publicar");
+  const blur = document.getElementById("blur");
+  if (modal) {
+    modal.style.display = "flex";
+    console.log("Modal display set to flex");
+  } else {
+    console.error("Modal not found: id='modal-publicar'");
+  }
+  if (blur) {
+    blur.style.display = "block";
+    console.log("Blur display set to block");
+  } else {
+    console.error("Blur not found: id='blur'");
+  }
+};
+
+window.cerrarModal = function () {
+  console.log("Closing modal...");
+  const modal = document.getElementById("modal-publicar");
+  const blur = document.getElementById("blur");
+  if (modal) modal.style.display = "none";
+  if (blur) blur.style.display = "none";
+};
+
+// Logic for Publish Modal
+document.addEventListener("turbo:load", () => {
+  // Manejo de botones de cierre (X) y el fondo difuminado (Blur)
+  const closeBtns = document.querySelectorAll(".modal-cerrar, .modal-close");
+  const blurOverlay = document.getElementById("blur");
+  const modalPublicar = document.getElementById("modal-publicar");
+
+  closeBtns.forEach(btn => {
+    btn.addEventListener("click", () => cerrarModal());
+  });
+
+  if (blurOverlay) {
+    blurOverlay.addEventListener("click", () => cerrarModal());
+  }
+
+  // Cerrar al hacer clic fuera del contenido (en el fondo del flexbox)
+  if (modalPublicar) {
+    modalPublicar.addEventListener("click", (e) => {
+      if (e.target === modalPublicar) {
+        cerrarModal();
+      }
+    });
+  }
+});
 
 // ================== MOTOR DE BÚSQUEDA ==================
 document.addEventListener("turbo:load", () => {

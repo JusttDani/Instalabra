@@ -63,8 +63,10 @@ document.addEventListener('turbo:load', () => {
         hiddenInput.focus();
     });
 
-    document.addEventListener('keydown', (e) => {
+    hiddenInput.addEventListener('keydown', (e) => {
         if (gameOver) return;
+        // Prevenir scroll si se pulsa espacio (aunque Wordle no suele usarlo)
+        if (e.key === " ") e.preventDefault();
         handleInput(e.key);
     });
 
