@@ -21,12 +21,11 @@
 
 					<div class="modal-form-wrap">
 						<form method="post" action="{{ path('app_home') }}" class="modal-form">
-							<input type="hidden" name="_token" value="{{ csrf_token('app_home') }}">
+							<input type="hidden" name="palabra[_token]" value="{{ csrf_token('palabra') }}">
 
 							<input type="text" name="palabra[palabra]" placeholder="La palabra…" class="modal-input modal-input--word" autocomplete="off" required>
 
 							<textarea name="palabra[definicion]" placeholder="Su definición…" rows="4" class="modal-input modal-input--def" required></textarea>
-
 							<div class="modal-actions">
 								<button type="submit" class="btn-publicar-modal">Publicar</button>
 							</div>
