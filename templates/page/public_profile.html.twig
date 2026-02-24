@@ -40,30 +40,32 @@
 			<!-- ACCIONES DEL PERFIL -->
 			{% if app.user and app.user != usuario %}
 				<div class="profile-actions">
-					{% if isFollowing %}
-						<a href="{{ path('app_usuario_follow', {id: usuario.id}) }}" class="ajax-follow-link" data-turbo="false">
-							<button class="btn-following">Siguiendo</button>
-						</a>
-					{% else %}
-						<a href="{{ path('app_usuario_follow', {id: usuario.id}) }}" class="ajax-follow-link" data-turbo="false">
-							<button class="btn-follow">Seguir</button>
-						</a>
-					{% endif %}
 
+					{# Seguir / Siguiendo #}
+					<a href="{{ path('app_usuario_follow', {id: usuario.id}) }}"
+					   class="ajax-follow-link" data-turbo="false">
+						<button class="{{ isFollowing ? 'btn-following' : 'btn-follow' }}">
+							{{ isFollowing ? 'Siguiendo' : 'Seguir' }}
+						</button>
+					</a>
+
+					{# Mensaje #}
 					<a href="{{ path('app_chat_show', {id: usuario.id}) }}">
 						<button class="btn-message">Enviar mensaje</button>
 					</a>
 
-					{% if is_granted('ROLE_ADMIN') %}
-						<a href="{{ path('admin_user_toggle_block', {id: usuario.id}) }}" class="ajax-follow-link">
-							<button class="btn-admin {{ usuario.isBlocked ? 'btn-unblock' : 'btn-block' }}">
-								{{ usuario.isBlocked ? '🔓 Desbloquear' : '🔒 Bloquear' }}
-							</button>
-						</a>
-					{% endif %}
+					{# Bloquear / Desbloquear #}
+					<a href="{{ path('admin_user_toggle_block', {id: usuario.id}) }}"
+					   class="ajax-follow-link" data-turbo="false">
+						<button class="btn-admin {{ usuario.isBlocked ? 'btn-unblock' : 'btn-block' }}">
+							{{ usuario.isBlocked ? 'Desbloquear' : 'Bloquear' }}
+						</button>
+					</a>
+
 				</div>
 			{% endif %}
 		</section>
+
 
 		<!-- TABS DE NAVEGACIÓN -->
 		<div class="profile-tabs">
