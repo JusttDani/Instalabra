@@ -17,28 +17,15 @@
 
 			{% if app.user %}
 				<div class="modal-publicar-body">
-					<img class="modal-avatar"
-						src="{{ app.user.fotoPerfil ? asset('uploads/perfiles/' ~ app.user.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}"
-						alt="{{ app.user.nombre }}">
+					<img class="modal-avatar" src="{{ app.user.fotoPerfil ? asset('uploads/perfiles/' ~ app.user.fotoPerfil) : asset('multimedia/Prueba/noicon.jpg') }}" alt="{{ app.user.nombre }}">
 
 					<div class="modal-form-wrap">
 						<form method="post" action="{{ path('app_home') }}" class="modal-form">
-							<input type="hidden" name="palabra[_token]" value="{{ csrf_token('palabra') }}">
+							<input type="hidden" name="_token" value="{{ csrf_token('app_home') }}">
 
-							<input
-								type="text"
-								name="palabra[palabra]"
-								placeholder="La palabra…"
-								class="modal-input modal-input--word"
-								autocomplete="off"
-								required>
+							<input type="text" name="palabra[palabra]" placeholder="La palabra…" class="modal-input modal-input--word" autocomplete="off" required>
 
-							<textarea
-								name="palabra[definicion]"
-								placeholder="Su definición…"
-								rows="4"
-								class="modal-input modal-input--def"
-								required></textarea>
+							<textarea name="palabra[definicion]" placeholder="Su definición…" rows="4" class="modal-input modal-input--def" required></textarea>
 
 							<div class="modal-actions">
 								<button type="submit" class="btn-publicar-modal">Publicar</button>
@@ -200,7 +187,7 @@
 				<!-- BORRAR -->
 				{% if app.user and (app.user == palabra.usuario or is_granted('ROLE_ADMIN')) %}
 					<div class="action">
-						<form method="post" action="{{ path('palabra_delete', {id: palabra.id}) }}" onsubmit="return confirm('¿Eliminar?');">
+						<form method="post" action="{{ path('palabra_delete', {id: palabra.id}) }}" data-confirm="¿Eliminar?">
 							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ palabra.id) }}">
 							<button type="submit">&times;</button>
 						</form>
@@ -220,7 +207,7 @@
 							<span class="message">{{ comentario.texto ?? comentario.contenido ?? '' }}</span>
 						</div>
 						{% if app.user and (app.user == comentario.usuario or is_granted('ROLE_ADMIN')) %}
-							<form method="post" action="{{ path('comentario_delete', {id: comentario.id}) }}" onsubmit="return confirm('¿Eliminar comentario?');" style="margin-left: auto;">
+							<form method="post" action="{{ path('comentario_delete', {id: comentario.id}) }}" onsubmit="return confirm('¿Eliminar comentario?');">
 								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comentario.id) }}">
 								<button type="submit">&times;</button>
 							</form>

@@ -20,12 +20,12 @@
 		<!-- Theme Detection Script (Anti-flicker) -->
 		<script>
 			(function () {
-const theme = localStorage.getItem('theme') || 'light';
-if (theme === 'dark') {
-document.documentElement.classList.add('dark-mode');
-document.body.classList.add('dark-mode');
-}
-})();
+			const theme = localStorage.getItem('theme') || 'light';
+			if (theme === 'dark') {
+			document.documentElement.classList.add('dark-mode');
+			document.body.classList.add('dark-mode');
+			}
+			})();
 		</script>
 		<!-- Hotwire Turbo for SPA Navigation -->
 		<meta name="turbo-cache-control" content="no-cache">
@@ -149,34 +149,34 @@ document.body.classList.add('dark-mode');
 		<!-- Scripts-->
 		<!-- Debug Mode Widget -->
 		{% if app.session.get('debug_mode') %}
-			<div style="position: fixed; bottom: 20px; right: 20px; background: white; border: 1px solid #ccc; padding: 15px; border-radius: 8px; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-				<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
-					<h4 style="margin: 0; font-size: 14px;">🔧 Debug Mode</h4>
-					<span style="font-size: 10px; background: #e6ffec; color: #24292f; padding: 2px 6px; border-radius: 10px; border: 1px solid rgba(27,31,35,0.15);">ACTIVO</span>
+			<div>
+				<div>
+					<h4>🔧 Debug Mode</h4>
+					<span>ACTIVO</span>
 				</div>
 
-				<p style="font-size: 12px; margin-bottom: 10px;">
+				<p>
 					<strong>Fecha Simulada:</strong><br>
 					{{ app.session.get('simulated_date') ? app.session.get('simulated_date') : 'Tiempo Real (Hoy)' }}
 				</p>
 
-				<form action="{{ path('debug_set_date') }}" method="post" style="display: flex; flex-direction: column; gap: 8px;">
-					<input type="datetime-local" name="simulated_date" value="{{ app.session.get('simulated_date') }}" step="1" style="font-size: 12px; padding: 4px; border: 1px solid #ddd; border-radius: 4px;">
-					<button type="submit" style="font-size: 12px; padding: 6px; background: #d291ff; border: none; border-radius: 4px; color: white; cursor: pointer;">Establecer Fecha</button>
+				<form action="{{ path('debug_set_date') }}" method="post">
+					<input type="datetime-local" name="simulated_date" value="{{ app.session.get('simulated_date') }}" step="1">
+					<button type="submit">Establecer Fecha</button>
 				</form>
 
-				<div style="display: flex; gap: 10px; margin-top: 10px; font-size: 11px;">
-					<form action="{{ path('debug_set_date') }}" method="post" style="margin: 0;">
+				<div>
+					<form action="{{ path('debug_set_date') }}" method="post">
 						<input type="hidden" name="simulated_date" value="">
-						<button type="submit" style="background: none; border: none; color: #b26eff; cursor: pointer; padding: 0; font-size: 11px;">Reset Hoy</button>
+						<button type="submit">Reset Hoy</button>
 					</form>
-					<a href="{{ path('debug_toggle') }}" style="color: #666; text-decoration: none;">Desactivar</a>
+					<a href="{{ path('debug_toggle') }}">Desactivar</a>
 				</div>
 			</div>
 		{% else %}
 			<!-- Footer link for debug -->
-			<div style="position: fixed; bottom: 15px; right: 15px; z-index: 9998; opacity: 0.5;">
-				<a href="{{ path('debug_toggle') }}" title="Activar Modo Debug" style="text-decoration: none; font-size: 18px;">🛠️</a>
+			<div>
+				<a href="{{ path('debug_toggle') }}" title="Activar Modo Debug">🛠️</a>
 			</div>
 		{% endif %}
 

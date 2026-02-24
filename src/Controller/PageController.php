@@ -396,7 +396,7 @@ final class PageController extends AbstractController
         return $this->redirect($request->headers->get('referer'));
     }
 
-
+    #[Route('/api/sidebar/right', name: 'api_sidebar_right')]
     public function rankingWidget(
         PalabraRepository $palabraRepository,
         UsuarioRepository $usuarioRepository
