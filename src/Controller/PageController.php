@@ -218,6 +218,7 @@ final class PageController extends AbstractController
         $startDate = match ($period) {
             'weekly' => (clone $now)->modify('-1 week'),
             'monthly' => (clone $now)->modify('-1 month'),
+            'yearly' => (clone $now)->modify('-1 year'),
             default => (clone $now)->modify('-1 day'),
         };
 
