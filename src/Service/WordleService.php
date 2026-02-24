@@ -99,4 +99,33 @@ class WordleService
 
         return $reto;
     }
+
+    /**
+     * Comprueba si una palabra existe en el diccionario español descargado.
+     */
+    public function esPalabraValida(string $intento): bool
+    {
+        $filePath = __DIR__ . '/../../data/palabras_5.txt';
+
+        // Si el archivo no existe por alguna razón, usamos un fallback básico
+        if (!file_exists($filePath)) {
+            return true;
+        }
+
+        $intentoUpper = mb_strtoupper($intento, 'UTF-8');
+        $replacements = [
+            'Á' => 'A',
+            'É' => 'E',
+            'Í' => 'I',
+            'Ó' => 'O',
+            'Ú' => 'U',
+            'Ü' => 'U'
+        ];
+        $intentoUpper = strtr($intentoUpper, $replacements);
+
+        $words = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+        // Búsqueda binaria o in_array, in_array es suficientemente rápido para 4700 elementos
+        return in_array($intentoUpper, $words, true);
+    }
 }
