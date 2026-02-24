@@ -47,6 +47,10 @@ class WordleController extends AbstractController
             return $this->json(['error' => 'La palabra debe tener 5 letras'], 400);
         }
 
+        if (!$wordleService->esPalabraValida($intento)) {
+            return $this->json(['error' => 'La palabra no existe en el diccionario'], 400);
+        }
+
         // Obtenemos el reto de hoy
         $reto = $wordleService->obtenerRetoHoy();
         if (!$reto) {
