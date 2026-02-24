@@ -3,17 +3,17 @@
 /* Color Palette - Subtle Dark with Purple Accents */
 body.dark-mode {
     background-color: #0b1116;
-    color: #e1e8ed;
+    color: #8899a6;
 }
 
 /* Sidebar Left */
 body.dark-mode .menu-bar-left {
     background-color: #0b1116;
-    border-right: 1px solid #38444d;
+    border-right: 1px solid #1c2732;
 }
 
 body.dark-mode .menu-bar-left .menu a {
-    color: #e1e8ed;
+    color: #8899a6;
 }
 
 body.dark-mode .menu-bar-left .menu a:hover {
@@ -23,14 +23,14 @@ body.dark-mode .menu-bar-left .menu a:hover {
 
 /* Feed Central */
 body.dark-mode .feed {
-    border-left: 1px solid #38444d;
-    border-right: 1px solid #38444d;
+    border-left: 1px solid #1c2732;
+    border-right: 1px solid #1c2732;
     background-color: #0b1116;
 }
 
 body.dark-mode .feed-buttons {
     background-color: rgba(11, 17, 22, 0.88);
-    border-bottom: 1px solid #38444d;
+    border-bottom: 1px solid #1c2732;
     backdrop-filter: blur(14px);
 }
 
@@ -44,22 +44,34 @@ body.dark-mode .feed-buttons button.active {
 
 /* Posts */
 body.dark-mode .single_post {
-    border-bottom: 1px solid #38444d;
+    border-bottom: 1px solid #1c2732;
 }
 
 body.dark-mode .single_post:hover {
     background-color: rgba(255, 255, 255, 0.02);
 }
 
+/* Main Word Highlight */
+body.dark-mode .single_post p:first-of-type a,
+body.dark-mode .palabra-link,
+body.dark-mode .word-name a {
+    color: #eff3f4 !important;
+    font-weight: 700;
+}
+
+/* Secondary Text */
 body.dark-mode .single_post p,
-body.dark-mode .post_header .user_info span,
-body.dark-mode .single_post a,
-body.dark-mode .comment-text a {
-    color: #e1e8ed;
+body.dark-mode .post_header .user_info span a,
+body.dark-mode .comment-text a,
+body.dark-mode .comment-text .message,
+body.dark-mode .comments p,
+body.dark-mode .chat-vacio-texto,
+body.dark-mode .ranking-subtitle {
+    color: #8899a6;
 }
 
 body.dark-mode .post_header .user_info small {
-    color: #8899a6;
+    color: #536471;
 }
 
 /* Forms */
@@ -103,8 +115,8 @@ body.dark-mode .rank-month {
 body.dark-mode .suggestions.box h3,
 body.dark-mode .rank-diary h3,
 body.dark-mode .rank-month h3 {
-    color: #e1e8ed;
-    border-bottom-color: #38444d;
+    color: #8899a6;
+    border-bottom-color: #1c2732;
 }
 
 body.dark-mode .word-list li {
@@ -133,12 +145,12 @@ body.dark-mode .comment:hover {
     background-color: #22303c;
 }
 
-body.dark-mode .comment-text span.username {
-    color: #e1e8ed;
+body.dark-mode .comment-text span.username a {
+    color: #8899a6;
 }
 
 body.dark-mode .comment-text span.message {
-    color: #e1e8ed;
+    color: #8899a6;
 }
 
 /* Specific Comment Input Field */
@@ -211,7 +223,7 @@ body.dark-mode .profile-info h2,
 body.dark-mode .stat-item strong,
 body.dark-mode .tab-button.active,
 body.dark-mode .empty-title {
-    color: #e1e8ed;
+    color: #8899a6;
 }
 
 body.dark-mode .profile-info p.bio,
@@ -219,7 +231,7 @@ body.dark-mode .stat-item span,
 body.dark-mode .tab-button,
 body.dark-mode .empty-subtitle,
 body.dark-mode .palabra-definition {
-    color: #8899a6;
+    color: #536471;
 }
 
 body.dark-mode .profile-tabs {
@@ -377,6 +389,7 @@ body.dark-mode .search-followers:focus {
 body.dark-mode .modal-list p.empty-subtitle {
     color: #8899a6;
 }
+
 /* RANKING PAGE */
 body.dark-mode .ranking-header h1 {
     color: #e1e8ed;
@@ -461,6 +474,23 @@ body.dark-mode .ranking-empty .empty-title {
 
 body.dark-mode .ranking-empty .empty-subtitle {
     color: #8899a6;
+}
+
+/* User & Palabra links in Ranking */
+body.dark-mode .user-link {
+    color: #e1e8ed !important;
+}
+
+body.dark-mode .user-link:hover {
+    color: #d291ff !important;
+}
+
+body.dark-mode .followers-number {
+    color: #e1e8ed;
+}
+
+body.dark-mode .followers-count {
+    background-color: #1c2732;
 }
 
 /* CHAT / MESSAGES PAGE */
@@ -556,4 +586,48 @@ body.dark-mode .mensajes-empty .empty-title {
 
 body.dark-mode .mensajes-empty .empty-subtitle {
     color: #8899a6;
+}
+
+/* ================== WORDLE DARK MODE ================== */
+body.dark-mode #wordle-sidebar {
+    background: #0b1116 !important;
+    border: 1px solid #38444d;
+    border-radius: 20px;
+}
+
+body.dark-mode .wordle-section.box h3 {
+    color: #8899a6;
+    border-bottom: 1px solid #1c2732;
+}
+
+body.dark-mode .tile {
+    border: 2px solid #38444d;
+    background-color: transparent;
+    color: #e1e8ed;
+}
+
+body.dark-mode .tile.active {
+    border-color: #d291ff;
+}
+
+body.dark-mode .tile.correct {
+    background-color: #538d4e;
+    border-color: #538d4e;
+    color: white;
+}
+
+body.dark-mode .tile.present {
+    background-color: #b59f3b;
+    border-color: #b59f3b;
+    color: white;
+}
+
+body.dark-mode .tile.absent {
+    background-color: #3a3a3c;
+    border-color: #3a3a3c;
+    color: white;
+}
+
+body.dark-mode #wordle-message {
+    color: #e1e8ed;
 }

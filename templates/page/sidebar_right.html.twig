@@ -40,4 +40,20 @@
         </ul>
     </div>
 
+    <!-- Wordle Game -->
+    <div class="wordle-section box" id="wordle-sidebar">
+        <h3>Palabra del Día</h3>
+        <div id="wordle-message" class="text-center small fw-bold mb-2"></div>
+        <div id="wordle-grid" class="wordle-grid">
+            {% for row in 0..5 %}
+                <div class="wordle-row" data-row="{{ row }}">
+                    {% for col in 0..4 %}
+                        <div class="tile" data-col="{{ col }}"></div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <input type="text" id="wordle-hidden-input" maxlength="5" style="position: absolute; opacity: 0; pointer-events: none;">
+    </div>
+
 </div>

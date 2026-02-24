@@ -4,9 +4,49 @@ document.addEventListener('turbo:load', () => {
     const hiddenInput = document.getElementById('wordle-hidden-input');
 
     let currentRow = 0;
-    let currentTile = 0;
     let gameOver = false;
     let currentGuess = "";
+
+    // Load initial state
+    loadGameState();
+
+    async function loadGameState() {
+        try {
+            const response = await fetch('/api/wordle/estado');
+            if (!response.ok) return;
+
+            const state = await response.json();
+            if (state.historial && state.historial.length > 0) {
+                restoreGrid(state.historial);
+                currentRow = state.historial.length;
+            }
+            if (state.completado) {
+                gameOver = true;
+                // Check if last attempt was a win
+                const lastResult = state.historial[state.historial.length - 1];
+                const isWin = lastResult.every(r => r.estado === 'correct');
+                if (isWin) {
+                    showMessage("Ya lo has clavado hoy 🎉", "text-success");
+                } else {
+                    showMessage("Mañana más... 💀", "text-muted");
+                }
+            }
+        } catch (error) {
+            console.error("Error loading Wordle state:", error);
+        }
+    }
+
+    function restoreGrid(historial) {
+        historial.forEach((guess, rowIndex) => {
+            const row = grid.querySelector(`[data-row="${rowIndex}"]`);
+            const tiles = row.querySelectorAll('.tile');
+            guess.forEach((res, i) => {
+                const tile = tiles[i];
+                tile.textContent = res.letra;
+                tile.classList.add(res.estado);
+            });
+        });
+    }
 
     // Focus hidden input on click to allow mobile keyboard
     document.getElementById('wordle-sidebar').addEventListener('click', (e) => {
