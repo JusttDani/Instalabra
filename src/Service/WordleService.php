@@ -11,11 +11,47 @@ class WordleService
 {
     private $entityManager;
     private $retoRepository;
+    private $intentoRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, RetoDiarioRepository $retoRepository)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        RetoDiarioRepository $retoRepository,
+        \App\Repository\IntentoWordleRepository $intentoRepository
+    ) {
         $this->entityManager = $entityManager;
         $this->retoRepository = $retoRepository;
+        $this->intentoRepository = $intentoRepository;
+    }
+
+    /**
+     * Obtiene o crea el registro de progreso de un usuario para un reto.
+     */
+    public function obtenerProgreso(\App\Entity\Usuario $usuario, \App\Entity\RetoDiario $reto): \App\Entity\IntentoWordle
+    {
+        $intento = $this->intentoRepository->findOneBy([
+            'usuario' => $usuario,
+            'reto' => $reto
+        ]);
+
+        if (!$intento) {
+            $intento = new \App\Entity\IntentoWordle();
+            $intento->setUsuario($usuario);
+            $intento->setReto($reto);
+            $intento->setFecha(new \DateTime());
+            $intento->setHistorial([]);
+            $intento->setCompletado(false);
+
+            $this->entityManager->persist($intento);
+            $this->entityManager->flush();
+        }
+
+        return $intento;
+    }
+
+    public function guardarProgreso(\App\Entity\IntentoWordle $intento): void
+    {
+        $this->entityManager->persist($intento);
+        $this->entityManager->flush();
     }
 
     /**

@@ -1,9 +1,8 @@
 #wordle-sidebar {
-    max-width: 250px;
-    margin: 0 auto;
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    border: 1px solid #eff3f4;
 }
 
 .wordle-grid {
@@ -21,6 +20,7 @@
 .tile {
     aspect-ratio: 1;
     border: 2px solid #d3d6da;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
