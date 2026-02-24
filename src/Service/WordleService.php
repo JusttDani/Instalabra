@@ -26,7 +26,7 @@ class WordleService
     /**
      * Obtiene o crea el registro de progreso de un usuario para un reto.
      */
-    public function obtenerProgreso(\App\Entity\Usuario $usuario, \App\Entity\RetoDiario $reto): \App\Entity\IntentoWordle
+    public function obtenerProgreso(\App\Entity\Usuario $usuario, RetoDiario $reto): \App\Entity\IntentoWordle
     {
         $intento = $this->intentoRepository->findOneBy([
             'usuario' => $usuario,
