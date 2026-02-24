@@ -1,40 +1,119 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Compartir Publicación
-{% endblock %}
+{% block title %}Compartir publicación{% endblock %}
 
 {% block body %}
-	<div class="row">
-		<div class="col-md-6 offset-md-3">
-			<h3>Compartir publicación</h3>
+<div class="share-header">
+    <a href="javascript:history.back()" class="share-back">‹</a>
+    <h1 class="share-titulo">Compartir</h1>
+</div>
 
-			<!-- Preview -->
-			<div class="card mb-4">
-				<div class="card-body">
-					<strong>{{ palabra.usuario.nombre }}</strong>
-					wrote:
-					<h5>{{ palabra.palabra }}</h5>
-					<p>{{ palabra.definicion }}</p>
-				</div>
-			</div>
+<div class="share-page">
 
-			<h4>Enviar a:</h4>
-			<div class="list-group">
-				{% for user in users %}
-					<div class="list-group-item d-flex justify-content-between align-items-center">
-						<span>{{ user.nombre }}</span>
-						<form action="{{ path('app_chat_send', {id: user.id}) }}" method="post">
-							<input type="hidden" name="shared_post_id" value="{{ palabra.id }}">
-							<input
-							type="hidden" name="content" value="">
-							<!-- Optional message? -->
-							<button type="submit" class="btn btn-primary btn-sm">Enviar</button>
-						</form>
-					</div>
-				{% else %}
-					<p>No sigues a nadie para compartir.</p>
-				{% endfor %}
-			</div>
-		</div>
-	</div>
+    {# ── Preview de la publicación ── #}
+    <div class="share-preview">
+        <div class="share-preview-autor">
+            <img class="share-preview-avatar"
+                 src="{{ palabra.usuario.fotoPerfil
+                     ? asset('uploads/perfiles/' ~ palabra.usuario.fotoPerfil)
+                     : asset('multimedia/Prueba/noicon.jpg') }}"
+                 alt="{{ palabra.usuario.nombre }}">
+            <div class="share-preview-info">
+                <span class="share-preview-nombre">{{ palabra.usuario.nombre }}</span>
+                <span class="share-preview-fecha">{{ palabra.fechaCreacion|date('d M Y') }}</span>
+            </div>
+        </div>
+        <div class="share-preview-contenido">
+            <p class="share-preview-palabra">{{ palabra.palabra }}</p>
+            <p class="share-preview-definicion">{{ palabra.definicion }}</p>
+        </div>
+    </div>
+
+    {# ── Buscador ── #}
+    {% if users is not empty %}
+    <div class="share-search-wrap">
+        <svg class="share-search-icon" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text"
+               id="share-search"
+               class="share-search-input"
+               placeholder="Busca un usuario..."
+               autocomplete="off"
+               autofocus>
+        <button type="button" class="share-search-clear" id="share-search-clear" style="display:none;"
+                onclick="clearSearch()">✕</button>
+    </div>
+    {% endif %}
+
+    {# ── Título sección ── #}
+    <div class="share-seccion-titulo" id="share-seccion-titulo">
+        {% if users is not empty %}Siguiendo{% endif %}
+    </div>
+
+    {# ── Lista de usuarios ── #}
+    {% if users is empty %}
+        <div class="share-empty">
+            <span class="share-empty-icon">👤</span>
+            <p class="share-empty-texto">No sigues a nadie todavía</p>
+            <p class="share-empty-sub">Sigue a usuarios para poder compartir publicaciones</p>
+        </div>
+    {% else %}
+        <div id="share-no-results" class="share-empty" style="display:none;">
+            <span class="share-empty-icon">🔍</span>
+            <p class="share-empty-texto">Sin resultados</p>
+            <p class="share-empty-sub">Prueba con otro nombre</p>
+        </div>
+
+        <ul class="share-lista" id="share-lista">
+            {% for user in users %}
+            <li class="share-item" id="item-{{ user.id }}"
+                data-nombre="{{ user.nombre|lower }}">
+
+                <div class="share-user">
+                    <img class="share-avatar"
+                         src="{{ user.fotoPerfil
+                             ? asset('uploads/perfiles/' ~ user.fotoPerfil)
+                             : asset('multimedia/Prueba/noicon.jpg') }}"
+                         alt="{{ user.nombre }}">
+                    <div class="share-user-info">
+                        <span class="share-user-nombre">{{ user.nombre }}</span>
+                    </div>
+                </div>
+
+                <form action="{{ path('app_chat_send', {id: user.id}) }}"
+                      method="post"
+                      class="share-form">
+                    <input type="hidden" name="shared_post_id" value="{{ palabra.id }}">
+                    <input type="hidden" name="content" class="share-msg-hidden" value="">
+
+                    <div class="share-actions">
+                        <button type="button"
+                                class="share-btn-msg"
+                                id="btn-msg-{{ user.id }}"
+                                onclick="toggleMsg({{ user.id }})">
+                            <span class="share-btn-msg-label">Mensaje</span>
+                            <svg class="share-chevron" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2.5"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"/>
+                            </svg>
+                        </button>
+                        <button type="submit" class="share-btn-send">Enviar</button>
+                    </div>
+
+                    <div class="share-msg-wrap" id="msg-{{ user.id }}" style="display:none;">
+                        <input type="text"
+                               class="share-msg-input"
+                               placeholder="Añade un mensaje..."
+                               oninput="this.closest('form').querySelector('.share-msg-hidden').value = this.value">
+                    </div>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</div>
 {% endblock %}

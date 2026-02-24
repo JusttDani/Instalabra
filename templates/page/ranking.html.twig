@@ -28,13 +28,11 @@
             <span class="period-icon"></span>
             <span class="period-label">Mensual</span>
         </a>
-        <!--
         <a href="{{ path('app_ranking', {period: 'yearly'}) }}" 
            class="period-tab {{ period == 'yearly' ? 'active' : '' }}">
             <span class="period-icon"></span>
             <span class="period-label">Anual</span>
         </a>
-        -->
     </div>
 
     <!-- Ranking de palabras -->
@@ -64,11 +62,11 @@
                         <li class="ranking-item" data-position="{{ position }}">
                             <div class="rank-position">
                                 {% if position == 1 %}
-                                    <span class="medal gold"></span>
+                                    <span class="medal gold">1</span>
                                 {% elseif position == 2 %}
-                                    <span class="medal silver"></span>
+                                    <span class="medal silver">2</span>
                                 {% elseif position == 3 %}
-                                    <span class="medal bronze"></span>
+                                    <span class="medal bronze">3</span>
                                 {% else %}
                                     <span class="rank-number">{{ position }}</span>
                                 {% endif %}
@@ -132,11 +130,11 @@
                         <li class="ranking-item user-item" data-position="{{ position }}">
                             <div class="rank-position">
                                 {% if position == 1 %}
-                                    <span class="medal gold"></span>
+                                    <span class="medal gold">1</span>
                                 {% elseif position == 2 %}
-                                    <span class="medal silver"></span>
+                                    <span class="medal silver">2</span>
                                 {% elseif position == 3 %}
-                                    <span class="medal bronze"></span>
+                                    <span class="medal bronze">3</span>
                                 {% else %}
                                     <span class="rank-number">{{ position }}</span>
                                 {% endif %}
