@@ -236,38 +236,5 @@
 		</div>
 
 		<!-- Scripts-->
-		<!-- Debug Mode Widget -->
-		{% if app.session.get('debug_mode') %}
-			<div>
-				<div>
-					<h4>🔧 Debug Mode</h4>
-					<span>ACTIVO</span>
-				</div>
-
-				<p>
-					<strong>Fecha Simulada:</strong><br>
-					{{ app.session.get('simulated_date') ? app.session.get('simulated_date') : 'Tiempo Real (Hoy)' }}
-				</p>
-
-				<form action="{{ path('debug_set_date') }}" method="post">
-					<input type="datetime-local" name="simulated_date" value="{{ app.session.get('simulated_date') }}" step="1">
-					<button type="submit">Establecer Fecha</button>
-				</form>
-
-				<div>
-					<form action="{{ path('debug_set_date') }}" method="post">
-						<input type="hidden" name="simulated_date" value="">
-						<button type="submit">Reset Hoy</button>
-					</form>
-					<a href="{{ path('debug_toggle') }}">Desactivar</a>
-				</div>
-			</div>
-		{% else %}
-			<!-- Footer link for debug -->
-			<div>
-				<a href="{{ path('debug_toggle') }}" title="Activar Modo Debug">🛠️</a>
-			</div>
-		{% endif %}
-
 	</body>
 </html>
