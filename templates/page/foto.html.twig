@@ -47,6 +47,15 @@
             {{ form_errors(form.nombre) }}
         </div>
 
+        {# Email #}
+        <div class="editar-campo">
+            <label class="editar-label">Email</label>
+            {{ form_widget(form.email, {
+                'attr': {'class': 'editar-input', 'placeholder': 'tu@email.com'}
+            }) }}
+            {{ form_errors(form.email) }}
+        </div>
+
         {# Biografía #}
         {% if form.biografia is defined %}
         <div class="editar-campo editar-bio">
@@ -65,16 +74,22 @@
         </div>
         {% endif %}
 
-        {# Email #}
-        {% if form.email is defined %}
+        {# Contraseña #}
         <div class="editar-campo">
-            <label class="editar-label">Email</label>
-            {{ form_widget(form.email, {
-                'attr': {'class': 'editar-input', 'placeholder': 'tu@email.com'}
+            <label class="editar-label">Nueva contraseña (dejar en blanco para no cambiar)</label>
+            {{ form_widget(form.plainPassword.first, {
+                'attr': {'class': 'editar-input', 'placeholder': 'Mínimo 6 caracteres'}
             }) }}
-            {{ form_errors(form.email) }}
+            {{ form_errors(form.plainPassword.first) }}
         </div>
-        {% endif %}
+
+        <div class="editar-campo">
+            <label class="editar-label">Repetir contraseña</label>
+            {{ form_widget(form.plainPassword.second, {
+                'attr': {'class': 'editar-input', 'placeholder': 'Repite la nueva contraseña'}
+            }) }}
+            {{ form_errors(form.plainPassword.second) }}
+        </div>
 
     </div>
 
