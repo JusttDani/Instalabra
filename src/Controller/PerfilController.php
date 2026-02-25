@@ -27,7 +27,7 @@ class PerfilController extends AbstractController
             $foto = $form->get('fotoPerfil')->getData();
 
             if ($foto) {
-                $nombreArchivo = uniqid().'.'.$foto->guessExtension();
+                $nombreArchivo = uniqid() . '.' . $foto->guessExtension();
                 $foto->move(
                     $this->getParameter('perfil_dir'),
                     $nombreArchivo
@@ -37,7 +37,7 @@ class PerfilController extends AbstractController
 
             $em->flush();
 
-            $this->addFlash('success', 'Perfil actualizado correctamente');
+            $this->addFlash('success', '');
 
             return $this->redirectToRoute('app_perfil');
         }

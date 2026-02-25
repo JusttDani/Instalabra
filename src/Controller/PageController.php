@@ -57,7 +57,7 @@ final class PageController extends AbstractController
             $entityManager->persist($palabra);
             $entityManager->flush();
 
-            $this->addFlash('success', '¡Palabra publicada!');
+            $this->addFlash('success', '');
             return $this->redirectToRoute('app_home');
         }
 
@@ -82,8 +82,8 @@ final class PageController extends AbstractController
 
         // --- Lógica de Ranking para el Inicio ---
         $now = $this->timeService->getNow();
-        $startDate = (clone $now)->modify('-1 day');
-        $topPalabras = $palabraRepository->findTopByLikes(5, $startDate);
+        $startDate = (clone $now)->setTime(0, 0, 0); // Solo hoy
+        $topPalabras = $palabraRepository->findTopByLikes(5, $startDate, $startDate);
         $maxLikes = 1;
         if (!empty($topPalabras)) {
             $maxLikes = $topPalabras[0]['likesCount'];
@@ -108,7 +108,8 @@ final class PageController extends AbstractController
     public function trendingApi(PalabraRepository $palabraRepository): JsonResponse
     {
         $now = $this->timeService->getNow();
-        $daily = $palabraRepository->findTopByLikes(3, (clone $now)->modify('-1 day'));
+        $todayStart = (clone $now)->setTime(0, 0, 0);
+        $daily = $palabraRepository->findTopByLikes(3, $todayStart, $todayStart);
         $monthly = $palabraRepository->findTopByLikes(3, (clone $now)->modify('-1 month'));
 
         $format = function ($list) {
@@ -219,10 +220,12 @@ final class PageController extends AbstractController
             'weekly' => (clone $now)->modify('-1 week'),
             'monthly' => (clone $now)->modify('-1 month'),
             'yearly' => (clone $now)->modify('-1 year'),
-            default => (clone $now)->modify('-1 day'),
+            default => (clone $now)->setTime(0, 0, 0),
         };
 
-        $topPalabras = $palabraRepository->findTopByLikes(10, $startDate);
+        // Si es diario, filtramos también por fecha de creación de la palabra
+        $wordStartDate = ($period === 'daily' || $period === null) ? $startDate : null;
+        $topPalabras = $palabraRepository->findTopByLikes(10, $startDate, $wordStartDate);
         $topUsuarios = $usuarioRepository->findTopUsersByFollowers(10, $startDate);
 
         //Para calcular la barra que se va a rellenar con dependiendo del num de likes
@@ -403,9 +406,9 @@ final class PageController extends AbstractController
         UsuarioRepository $usuarioRepository
     ): Response {
         $now = $this->timeService->getNow();
-        $startDate = (clone $now)->modify('-1 day');
+        $startDate = (clone $now)->setTime(0, 0, 0);
 
-        $topPalabras = $palabraRepository->findTopByLikes(5, $startDate);
+        $topPalabras = $palabraRepository->findTopByLikes(5, $startDate, $startDate);
 
         // Calculamos los likes máximos para que la barrita cuadre perfecto
         $maxLikes = 1;

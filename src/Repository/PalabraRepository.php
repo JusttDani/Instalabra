@@ -35,12 +35,18 @@ class PalabraRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    public function findTopByLikes(int $limit = 5, \DateTimeInterface $startDate = null): array
+    public function findTopByLikes(int $limit = 5, ?\DateTimeInterface $startDate = null, ?\DateTimeInterface $wordStartDate = null): array
     {
         $qb = $this->createQueryBuilder('p')
             ->select('p AS palabraEntity, COUNT(v.id) AS likesCount') // Seleccionamos la entidad y contamos likes
-            ->where('p.deletedAt IS NULL')
-            ->leftJoin('p.valoraciones', 'v', 'WITH', 'v.likeActiva = true' . ($startDate ? ' AND v.fechaCreacion >= :startDate' : ''))
+            ->where('p.deletedAt IS NULL');
+
+        if ($wordStartDate) {
+            $qb->andWhere('p.fechaCreacion >= :wordStartDate')
+                ->setParameter('wordStartDate', $wordStartDate);
+        }
+
+        $qb->leftJoin('p.valoraciones', 'v', 'WITH', 'v.likeActiva = true' . ($startDate ? ' AND v.fechaCreacion >= :startDate' : ''))
             ->groupBy('p.id')
             ->orderBy('likesCount', 'DESC');
 
