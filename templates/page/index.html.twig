@@ -7,7 +7,7 @@
 	<!-- Difuminacion del fondo al darle click a publicar -->
 	<div id="blur" class="blur" onclick="cerrarModal()"></div>
 
-	{# ── MODAL de publicar ── #}
+	{# MODAL de publicar #}
 	<div id="modal-publicar" class="modal-publicar" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
 		<div class="modal-publicar-inner">
 			<div class="modal-publicar-header">
@@ -156,14 +156,14 @@
 					{% if app.user %}
 						<form action="{{ path('palabra_like_toggle', {'id': palabra.id}) }}" method="post" class="ajax-like-form">
 							{% set liked = false %}
-							{% for v in palabra.valoraciones %}
-								{% if v.likeActiva and v.usuario == app.user %}
-									{% set liked = true %}
-								{% endif %}
-							{% endfor %}
-							<button type="submit">
-								<img src="{{ asset('multimedia/like.png') }}" alt="Me gusta">
-							</button>
+						{% for v in palabra.valoraciones %}
+							{% if v.likeActiva and v.usuario == app.user %}
+								{% set liked = true %}
+							{% endif %}
+						{% endfor %}
+						<button type="submit" class="{{ liked ? 'liked' : '' }}">
+							<img src="{{ asset('multimedia/like.png') }}" alt="Me gusta">
+						</button>
 						</form>
 					{% else %}
 						<img src="{{ asset('multimedia/like.png') }}" alt="Me gusta">
