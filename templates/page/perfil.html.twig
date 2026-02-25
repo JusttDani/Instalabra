@@ -90,9 +90,11 @@
 
 
 							<!-- Comentarios -->
-							<div class="action comment-action" onclick="window.location.href='{{ path('palabra_show', {id: palabra.id}) }}'">
-								<img src="{{ asset('multimedia/comment.png') }}" alt="Comentar">
-								<span class="count">{{ palabra.activeComentariosCount }}</span>
+							<div class="action comment-action">
+								<button type="button" class="action-btn" onclick="window.location.href='{{ path('palabra_show', {id: palabra.id}) }}'">
+									<img src="{{ asset('multimedia/comment.png') }}" alt="Comentar">
+									<span class="count">{{ palabra.activeComentariosCount }}</span>
+								</button>
 							</div>
 
 							<!-- Borrar comentario -->
