@@ -11,11 +11,16 @@ use App\Form\PerfilType;                                     // 👈 FormType
 use App\Entity\Usuario;
 use Doctrine\ORM\EntityManagerInterface;                     // 👈 EntityManagerInterface   
 
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 class PerfilController extends AbstractController
 {
     #[Route('/perfil/editar', name: 'perfil_editar')]
-    public function editar(Request $request, EntityManagerInterface $em): Response
-    {
+    public function editar(
+        Request $request,
+        EntityManagerInterface $em,
+        UserPasswordHasherInterface $passwordHasher
+    ): Response {
         /** @var Usuario $usuario */
         $usuario = $this->getUser();
 
@@ -32,7 +37,14 @@ class PerfilController extends AbstractController
                     $this->getParameter('perfil_dir'),
                     $nombreArchivo
                 );
-                $usuario->setFotoPerfil($nombreArchivo); // ahora IDE lo reconoce
+                $usuario->setFotoPerfil($nombreArchivo);
+            }
+
+            // Lógica de cambio de contraseña
+            $plainPassword = $form->get('plainPassword')->getData();
+            if ($plainPassword) {
+                $hashedPassword = $passwordHasher->hashPassword($usuario, $plainPassword);
+                $usuario->setPassword($hashedPassword);
             }
 
             $em->flush();
@@ -47,6 +59,3 @@ class PerfilController extends AbstractController
         ]);
     }
 }
-
-
-

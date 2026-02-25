@@ -704,3 +704,77 @@ body.dark-mode .results-list li:not(.suggestion-item) {
 body.dark-mode .results-list li:not(.suggestion-item) a {
     color: #d291ff !important;
 }
+
+/* EDIT PROFILE PAGE */
+body.dark-mode .editar-header {
+    background: rgba(21, 32, 43, 0.96);
+    border-bottom-color: #38444d;
+}
+
+body.dark-mode .editar-titulo {
+    color: #e1e8ed;
+}
+
+body.dark-mode .editar-back {
+    color: #8899a6;
+}
+
+body.dark-mode .editar-foto-section {
+    background: linear-gradient(to bottom, rgba(210, 145, 255, 0.1), transparent);
+    border-bottom-color: #38444d;
+}
+
+body.dark-mode .editar-foto-preview {
+    border-color: #15202b;
+    box-shadow: 0 0 0 2px #38444d, 0 4px 16px rgba(210, 145, 255, 0.15);
+}
+
+body.dark-mode .editar-input {
+    color: #e1e8ed;
+}
+
+body.dark-mode .editar-label {
+    color: #8899a6;
+}
+
+body.dark-mode .editar-campo.editar-bio {
+    background: rgba(210, 145, 255, 0.08);
+}
+
+body.dark-mode .editar-bio-counter {
+    color: #8899a6;
+}
+
+body.dark-mode .editar-input::placeholder {
+    color: #536471;
+}
+
+body.dark-mode .editar-input:focus {
+    color: #ffffff;
+}
+
+body.dark-mode #perfil_biografia,
+body.dark-mode #bio-input {
+    color: #e1e8ed;
+}
+
+/* PROFILE PAGE */
+body.dark-mode .profile-info h2 {
+    color: #e1e8ed;
+}
+
+body.dark-mode .foto-perfil .bio {
+    color: #8899a6;
+}
+
+body.dark-mode .profile-stats {
+    border-color: #38444d;
+}
+
+body.dark-mode .profile-stats .stat-item span {
+    color: #8899a6;
+}
+
+body.dark-mode .profile-stats .stat-item strong {
+    color: #ffffff;
+}
