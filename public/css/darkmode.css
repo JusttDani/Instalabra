@@ -62,6 +62,21 @@ body.dark-mode .post_header .user_info small {
     color: #8899a6;
 }
 
+/* Post Actions Icons in Dark Mode */
+body.dark-mode .post-actions .action img {
+    filter: brightness(0) invert(0.7);
+    /* Turn black icons into light gray */
+}
+
+body.dark-mode .post-actions .action:hover img {
+    filter: brightness(0) invert(0.85);
+    /* Slightly brighter on hover */
+}
+
+body.dark-mode .post-actions .action .count {
+    color: #8899a6;
+}
+
 /* Forms */
 body.dark-mode .publish-form {
     border-bottom: 1px solid #38444d;
@@ -618,4 +633,74 @@ body.dark-mode .tile.absent {
 
 body.dark-mode #wordle-message {
     color: #e1e8ed;
+}
+
+/* EXPLORE PAGE */
+body.dark-mode .explorar-card {
+    background-color: #15202b;
+    border-color: #38444d;
+}
+
+body.dark-mode .explorar-card:first-child {
+    background: linear-gradient(135deg, rgba(210, 145, 255, 0.15), rgba(178, 110, 255, 0.08));
+    border-color: rgba(210, 145, 255, 0.4);
+}
+
+body.dark-mode .explorar-card-definicion,
+body.dark-mode .explorar-card-nombre {
+    color: #8899a6;
+}
+
+body.dark-mode .explorar-card-bottom {
+    border-top-color: #38444d;
+}
+
+body.dark-mode .explorar-card-avatar {
+    border-color: #38444d;
+}
+
+body.dark-mode .empty-state .empty-title {
+    color: #e1e8ed;
+}
+
+body.dark-mode .empty-state .empty-subtitle {
+    color: #8899a6;
+}
+
+/* SEARCH RESULTS SPECIFICS */
+body.dark-mode .suggestion-item {
+    background-color: #15202b;
+    border-color: #38444d;
+}
+
+body.dark-mode .suggestion-item:hover {
+    background: rgba(210, 145, 255, 0.05);
+}
+
+body.dark-mode .suggestion-name a {
+    color: #e1e8ed !important;
+}
+
+body.dark-mode .suggestion-avatar {
+    border-color: #38444d;
+}
+
+body.dark-mode .filter-btn:not(.active) {
+    color: #8899a6;
+    border-color: #38444d;
+    background: transparent;
+}
+
+body.dark-mode #search-results-container h3 {
+    color: #d291ff;
+    border-bottom-color: #38444d;
+}
+
+body.dark-mode .results-list li:not(.suggestion-item) {
+    color: #e1e8ed;
+    border-bottom-color: #38444d;
+}
+
+body.dark-mode .results-list li:not(.suggestion-item) a {
+    color: #d291ff !important;
 }
