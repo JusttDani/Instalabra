@@ -23,7 +23,7 @@ body {
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(5px);
   display: none;
-  z-index: 15;
+  z-index: 110;
 }
 
 /* ================== CONTENEDOR PRINCIPAL ================== */
@@ -36,7 +36,7 @@ body {
 
 
 /* ================== BARRA IZQUIERDA ================== */
-/* ── Variables de ancho ── */
+/* Variables de ancho */
 :root {
   --sidebar-collapsed: 72px;
   --sidebar-expanded: 245px;
@@ -336,20 +336,12 @@ body {
 
 /* ================== RESPONSIVE AL CORTARSE ================== */
 @media (max-width: 1100px) {
-  .container {}
-
-  .feed {
-    /* el flex:1 ya lo gestiona, no hace falta tocar */
-  }
-}
-
-@media (max-width: 1100px) {
-  .menu-bar-left:hover {
-    width: var(--sidebar-expanded);
-    align-items: flex-start;
-    padding: 20px 12px;
-    box-shadow: 4px 0 20px rgba(210, 145, 255, 0.1);
-  }
+    .menu-bar-left:hover {
+        width: var(--sidebar-expanded);
+        align-items: flex-start;
+        padding: 20px 12px;
+        box-shadow: 4px 0 20px rgba(210,145,255,0.1);
+    }
 
   .menu-bar-left:hover .nav-label {
     opacity: 1;
@@ -597,6 +589,16 @@ body {
   color: #0f1419;
 }
 
+.post_header .user_info span a {
+    color: #0f1419;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.post_header .user_info span a:hover {
+    color: #d291ff;
+}
+
 .post_header .user_info small {
   font-size: 12px;
   color: #8899a6;
@@ -636,45 +638,97 @@ body {
 }
 
 .post-actions .action {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 6px 10px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    color: inherit;
+    text-decoration: none;
+    background: none !important;
 }
 
 .post-actions .action:hover {
-  background-color: rgba(210, 145, 255, 0.1);
-  transform: none;
+    background: none !important;
+}
+
+/* Botón interno — aquí vive el hover */
+.post-actions .action-btn,
+.post-actions .action form button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    transition: background 0.2s ease;
+    font-family: "Poppins", sans-serif;
+}
+
+.post-actions .action-btn:hover,
+.post-actions .action form button:hover {
+    background-color: rgba(210, 145, 255, 0.07);
+}
+
+/* Compartir (es un <a class="action">) */
+.post-actions .action[href] {
+    padding: 4px 8px;
+    border-radius: 20px;
+    background: none;
+}
+
+.post-actions .action[href]:hover {
+    background-color: rgba(210, 145, 255, 0.07) !important;
 }
 
 .post-actions .action img {
-  width: 18px;
-  height: 18px;
-  opacity: 0.6;
-  transition: opacity 0.2s;
+    width: 20px;
+    height: 20px;
+    opacity: 0.55;
+    transition: opacity 0.2s;
+    object-fit: contain;
+    display: block;
 }
 
-.post-actions .action:hover img {
-  opacity: 1;
+.post-actions .action-btn:hover img,
+.post-actions .action form button:hover img,
+.post-actions .action[href]:hover img {
+    opacity: 0.9;
 }
 
-.post-actions .action .count {
-  font-size: 13px;
-  color: #8899a6;
-  font-weight: 600;
+.post-actions .action .count,
+.post-actions .action-btn .count {
+    font-size: 13px;
+    color: #8899a6;
+    font-weight: 600;
+    line-height: 1;
 }
 
-.post-actions .action form button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 0;
+.post-actions .delete-action {
+    margin-left: auto;
+}
+.delete-icon {
+    font-size: 20px;
+    color: #c0c8d0;
+    line-height: 1;
+    font-weight: 300;
+    transition: color 0.2s;
+    display: block;
+}
+.post-actions .delete-btn:hover {
+    background-color: rgba(255, 80, 80, 0.08) !important;
+}
+.post-actions .delete-action .delete-btn:hover .delete-icon {
+    color: #ff4d4d;
+}
+
+.post-actions .action form button.liked img {
+    filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(290deg) brightness(110%);
+    opacity: 1 !important;
 }
 
 /* ================== COMENTARIOS ================== */
@@ -805,6 +859,26 @@ body {
   background: linear-gradient(135deg, #b26eff, #9d5ce0);
   box-shadow: 0 4px 12px rgba(210, 145, 255, 0.4);
   transform: translateY(-1px);
+}
+
+.comment > form button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #c0c8d0;
+    font-size: 18px;
+    font-weight: 300;
+    padding: 2px 6px;
+    border-radius: 50%;
+    margin-left: auto;
+    transition: color 0.2s, background 0.2s;
+    line-height: 1;
+    align-self: center;
+}
+
+.comment > form button:hover {
+    color: #ff4d4d;
+    background: rgba(255, 77, 77, 0.08);
 }
 
 /* ================== BARRA DERECHA ================== */
@@ -2147,90 +2221,82 @@ body {
 
 /* ================== ACCIONES DEL POST ================== */
 .post-actions {
-  display: flex;
-  gap: 6px;
-  margin-top: 12px;
-  margin-left: 0;
-  align-items: center;
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+    margin-left: 0;
+    align-items: center;
+    padding: 16px 0 4px 16px;
 }
 
 .post-actions .action {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 24px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-  text-decoration: none;
-  color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    text-decoration: none;
+    color: inherit;
 }
 
 .post-actions .action:hover {
-  background-color: rgba(210, 145, 255, 0.1);
-  transform: none;
+    background-color: rgba(210, 145, 255, 0.07);
+    transform: none;
 }
 
-.post-actions .action form {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.post-actions .like-action {
+    padding: 0;
+    background: none !important;
+}
+
+.post-actions .like-action:hover {
+    background: none !important;
+}
+
+.post-actions .like-action form {
+    display: flex;
+    align-items: center;
 }
 
 .post-actions .action-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    transition: background 0.2s ease;
 }
 
-/* Corazón: 700×590 → 22×19px */
-.post-actions .action img[alt="Me gusta"],
-.post-actions .action-btn img[alt="Me gusta"] {
-  width: 22px;
-  height: 19px;
-  object-fit: contain;
-  opacity: 0.45;
-  transition: opacity 0.2s;
-  display: block;
-  flex-shrink: 0;
+.post-actions .action-btn:hover {
+    background-color: rgba(210, 145, 255, 0.07);
+}
+.post-actions .delete-action {
+    padding: 0;
+    background: none !important;
 }
 
-/* Comentario: 700×511 → 22×16px */
-.post-actions .action img[alt="Comentar"],
-.post-actions .action-btn img[alt="Comentar"] {
-  width: 22px;
-  height: 16px;
-  object-fit: contain;
-  opacity: 0.45;
-  transition: opacity 0.2s;
-  display: block;
-  flex-shrink: 0;
+.post-actions .delete-action:hover {
+    background: none !important;
 }
 
-.post-actions .action img[alt="Compartir"],
-.post-actions .action-btn img[alt="Compartir"] {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-  opacity: 0.45;
-  transition: opacity 0.2s;
-  display: block;
-  flex-shrink: 0;
+.post-actions .delete-btn {
+    padding: 4px 8px;
+    border-radius: 20px;
+    transition: background 0.2s ease;
 }
 
-.post-actions .action:hover img,
-.post-actions .action:hover .action-btn img {
-  opacity: 0.85;
+.post-actions .delete-btn:hover {
+    background-color: rgba(255, 80, 80, 0.08);
 }
 
-/* Like morado activo */
 .post-actions .action-btn.liked img {
-  filter: brightness(0) saturate(100%) invert(58%) sepia(60%) saturate(700%) hue-rotate(240deg) brightness(110%) contrast(100%);
-  opacity: 1 !important;
+    filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(500%) hue-rotate(290deg) brightness(110%);
+    opacity: 1 !important;
 }
 
 /* Contador */
@@ -2242,29 +2308,26 @@ body {
   line-height: 1;
 }
 
-/* Comentario — pill con fondo */
+/* Comentario */
 .post-actions .comment-action {
-  background: #f5f0ff;
-  border: 1.5px solid rgba(210, 145, 255, 0.2);
+    padding: 0;
+    background: none !important;
+    border-radius: 0;
 }
-
 .post-actions .comment-action:hover {
-  background: rgba(210, 145, 255, 0.15);
-  border-color: rgba(210, 145, 255, 0.4);
+    background: none !important;
 }
-
+.post-actions .comment-action .action-btn {
+    padding: 4px 8px;
+}
 .post-actions .comment-action img {
-  opacity: 0.6 !important;
+    opacity: 0.6 !important;
+    width: 26px !important;
+    height: 19px !important;
 }
-
 .post-actions .comment-action .count {
   color: #b26eff;
   font-weight: 700;
-}
-
-/* Borrar al extremo derecho */
-.post-actions .delete-action {
-  margin-left: auto;
 }
 
 .delete-btn {
@@ -3833,7 +3896,7 @@ body {
   justify-content: center;
   align-items: flex-start;
   padding-top: 72px;
-  z-index: 30;
+  z-index: 120;
 }
 
 .modal-publicar-inner {
