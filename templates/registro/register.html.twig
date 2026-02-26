@@ -32,6 +32,12 @@
 			{{ form_errors(form.password.second) }}
 		</div>
 
+		<div class="form-group checkbox-group">
+			{{ form_widget(form.aceptarTerminos) }}
+			{{ form_label(form.aceptarTerminos) }}
+			{{ form_errors(form.aceptarTerminos) }}
+		</div>
+
 		<button type="submit" class="btn-primary">Crear cuenta</button>
 		{{ form_end(form) }}
 

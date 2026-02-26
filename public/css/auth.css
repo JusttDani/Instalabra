@@ -192,6 +192,7 @@
         opacity: 0;
         transform: translateY(-30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -203,6 +204,7 @@
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -215,18 +217,52 @@
         width: 60px;
         height: 60px;
     }
-    
+
     .auth-logo h1 {
         font-size: 26px;
     }
-    
+
     .login-box {
         padding: 35px 25px;
     }
-    
+
     .login-box h2 {
         font-size: 24px;
     }
+}
+
+/* Estilos para el checkbox de términos */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #ec4899;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    cursor: pointer;
+    font-size: 14px;
+    color: #4b5563;
+    font-weight: 500;
+}
+
+.checkbox-group .invalid-feedback,
+.checkbox-group ul {
+    display: block;
+    width: 100%;
+    color: #dc2626;
+    font-size: 13px;
+    margin-top: 5px;
+    list-style: none;
+    padding: 0;
 }
 
 /* ================== VARIANTE PARA REGISTRO ================== */
